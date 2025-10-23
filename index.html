@@ -135,7 +135,7 @@ body{
 /* Trusted Companies Section */
 .companies-section {
   width: 100%;
-  padding: 60px 20px;
+  padding: 80px 20px;
   background: linear-gradient(180deg, rgba(0,0,0,0.02), rgba(3,8,12,0.03));
   z-index: 2;
 }
@@ -147,16 +147,16 @@ body{
 }
 
 .companies-title {
-  font-size: 28px;
+  font-size: 32px;
   font-weight: 800;
   color: #fff;
-  margin-bottom: 40px;
+  margin-bottom: 50px;
   text-align: center;
 }
 
 .companies-slider {
   position: relative;
-  max-width: 1200px;
+  max-width: 1300px;
   margin: 0 auto;
   overflow: hidden;
 }
@@ -164,56 +164,57 @@ body{
 .companies-track {
   display: flex;
   transition: transform 0.5s ease-in-out;
-  gap: 40px;
+  gap: 50px;
 }
 
 .company-logo {
-  flex: 0 0 150px;
-  height: 80px;
+  flex: 0 0 200px; /* Increased from 150px to 200px */
+  height: 120px; /* Increased from 80px to 120px */
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255,255,255,0.02);
-  border-radius: 12px;
-  border: 1px solid rgba(255,255,255,0.04);
-  padding: 20px;
+  background: rgba(255,255,255,0.03);
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 25px; /* Increased padding */
   transition: all 0.3s ease;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.3);
 }
 
 .company-logo:hover {
-  background: rgba(255,255,255,0.05);
-  transform: translateY(-5px);
+  background: rgba(255,255,255,0.06);
+  transform: translateY(-8px);
+  box-shadow: 0 15px 40px rgba(6,168,154,0.2);
 }
 
 .company-logo img {
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
-  /* REMOVED the filter that was making logos white */
   opacity: 0.9;
   transition: all 0.3s ease;
 }
 
 .company-logo:hover img {
   opacity: 1;
-  transform: scale(1.1);
+  transform: scale(1.15);
 }
 
 .slider-arrow {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
   color: var(--text-dark);
-  width: 50px;
-  height: 50px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-size: 20px;
+  font-size: 24px;
   font-weight: bold;
   transition: all 0.3s ease;
   z-index: 10;
@@ -222,14 +223,15 @@ body{
 .slider-arrow:hover {
   background: linear-gradient(90deg,var(--turq-1),var(--turq-2));
   color: #012;
+  transform: translateY(-50%) scale(1.1);
 }
 
 .arrow-left {
-  left: -25px;
+  left: -30px;
 }
 
 .arrow-right {
-  right: -25px;
+  right: -30px;
 }
 
 /* Projects full-width section */
@@ -279,15 +281,19 @@ body{
     max-width: 90%;
   }
   .slider-arrow {
-    width: 40px;
-    height: 40px;
-    font-size: 16px;
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
   }
   .arrow-left {
-    left: -20px;
+    left: -25px;
   }
   .arrow-right {
-    right: -20px;
+    right: -25px;
+  }
+  .company-logo {
+    flex: 0 0 180px;
+    height: 100px;
   }
 }
 @media (max-width:600px){
@@ -306,18 +312,18 @@ body{
     font-size: 14px;
   }
   .companies-title {
-    font-size: 22px;
-    margin-bottom: 30px;
+    font-size: 24px;
+    margin-bottom: 40px;
   }
   .company-logo {
-    flex: 0 0 120px;
-    height: 60px;
-    padding: 15px;
+    flex: 0 0 140px;
+    height: 80px;
+    padding: 20px;
   }
   .slider-arrow {
-    width: 35px;
-    height: 35px;
-    font-size: 14px;
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
   }
   .arrow-left {
     left: -15px;
@@ -577,7 +583,7 @@ body{
 </div>
 
 <script>
-// Companies data - FIXED with correct file names
+// Companies data - FIXED file names
 const companies = [
   { name: 'Exceed', logo: 'xceed logo.png' },
   { name: 'Raya', logo: 'Raya Logo.png' },
@@ -601,24 +607,29 @@ function initCompaniesSlider() {
     const logoDiv = document.createElement('div');
     logoDiv.className = 'company-logo';
     
-    // Create image with error handling
+    // Create image with the same logic as 1.jpg
     const img = document.createElement('img');
     img.src = company.logo;
     img.alt = company.name;
     img.title = company.name;
     
-    // Add error handling for missing images
+    // Add error handling to debug missing images
     img.onerror = function() {
-      console.log('Failed to load logo:', company.logo);
-      this.style.backgroundColor = '#333';
-      this.style.display = 'flex';
-      this.style.alignItems = 'center';
-      this.style.justifyContent = 'center';
-      this.style.color = '#fff';
-      this.style.fontSize = '12px';
-      this.style.fontWeight = 'bold';
-      this.innerHTML = company.name;
-      this.style.filter = 'none';
+      console.error('❌ Failed to load logo:', company.logo);
+      // Create fallback with company name
+      this.style.display = 'none';
+      const fallback = document.createElement('div');
+      fallback.style.color = '#fff';
+      fallback.style.fontSize = '16px';
+      fallback.style.fontWeight = 'bold';
+      fallback.style.textAlign = 'center';
+      fallback.style.width = '100%';
+      fallback.textContent = company.name;
+      logoDiv.appendChild(fallback);
+    };
+    
+    img.onload = function() {
+      console.log('✅ Successfully loaded:', company.logo);
     };
     
     logoDiv.appendChild(img);
@@ -632,7 +643,7 @@ function slideLeft() {
   const logos = track.querySelectorAll('.company-logo');
   if (logos.length === 0) return;
   
-  const logoWidth = logos[0].offsetWidth + 40; // width + gap
+  const logoWidth = logos[0].offsetWidth + 50; // width + gap
   
   currentSlide = Math.max(currentSlide - 1, 0);
   track.style.transform = `translateX(-${currentSlide * logoWidth}px)`;
@@ -643,7 +654,7 @@ function slideRight() {
   const logos = track.querySelectorAll('.company-logo');
   if (logos.length === 0) return;
   
-  const logoWidth = logos[0].offsetWidth + 40; // width + gap
+  const logoWidth = logos[0].offsetWidth + 50; // width + gap
   
   currentSlide = Math.min(currentSlide + 1, Math.max(0, logos.length - slidesToShow));
   track.style.transform = `translateX(-${currentSlide * logoWidth}px)`;
@@ -656,7 +667,7 @@ function startAutoSlide() {
     const logos = track.querySelectorAll('.company-logo');
     if (logos.length === 0) return;
     
-    const logoWidth = logos[0].offsetWidth + 40;
+    const logoWidth = logos[0].offsetWidth + 50;
     
     if (currentSlide >= Math.max(0, logos.length - slidesToShow)) {
       currentSlide = 0;
