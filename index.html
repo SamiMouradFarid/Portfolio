@@ -1,1 +1,552 @@
-<h1> hello </>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Sami Mourad — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg-dark:#041421;
+  --overlay: rgba(2,8,12,0.55);
+  --turq-1:#00c2d1;
+  --turq-2:#6a5bff;
+  --turq-3:#7fe3ff;
+  --card: rgba(255,255,255,0.03);
+  --glass: rgba(255,255,255,0.02);
+  --text-dark:#e9fbfb;
+}
+
+/* Reset */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family:'Poppins',sans-serif;
+  background: var(--bg-dark);
+  color: #e9fbfb;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  overflow-x:hidden;
+  direction:ltr;
+}
+
+/* top language switch */
+.lang-switch {
+  position:fixed;
+  right:20px;
+  top:16px;
+  z-index:9999;
+  display:flex;
+  gap:6px;
+  background: rgba(255,255,255,0.03);
+  padding:6px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,0.04);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+}
+.lang-switch button {
+  background:transparent;
+  border:none;
+  color:var(--text-dark);
+  padding:8px 12px;
+  font-weight:700;
+  cursor:pointer;
+  border-radius:8px;
+}
+.lang-switch button.active{
+  background: linear-gradient(90deg,var(--turq-1),var(--turq-2));
+  color:#012;
+  box-shadow: 0 12px 30px rgba(6,168,154,0.12);
+}
+
+/* LinkedIn Button */
+.linkedin-btn {
+  position:fixed;
+  right:20px;
+  top:80px;
+  z-index:9999;
+  background: rgba(255,255,255,0.03);
+  padding:8px 25px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,0.04);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+  transition: all 0.3s ease;
+}
+
+.linkedin-btn a {
+  color: var(--text-dark);
+  text-decoration: none;
+  font-weight:700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.linkedin-btn:hover {
+  background: linear-gradient(90deg,var(--turq-1),var(--turq-2));
+  box-shadow: 0 12px 30px rgba(6,168,154,0.12);
+}
+
+.linkedin-btn:hover a {
+  color: #012;
+}
+
+/* container */
+.container{ position:relative; z-index:3; max-width:1400px; margin:0 auto; }
+
+/* HERO with background video */
+.hero-wrap{ position:relative; min-height:90vh; overflow:hidden; display:flex; align-items:center; }
+.bg-video{
+  position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:1;
+  filter: brightness(0.36) saturate(1.05) contrast(1.02);
+}
+.bg-overlay{ position:absolute; inset:0; z-index:2; background: linear-gradient(180deg, rgba(2,8,12,0.28), rgba(2,8,12,0.48)); }
+
+/* hero content 50/50 */
+.hero{ position:relative; z-index:4; display:flex; gap:34px; align-items:stretch; width:100%; padding:36px 20px; min-height:90vh; }
+.col{ flex:0 0 50%; min-width:0; }
+
+/* left: profile area */
+.left{ display:flex; align-items:center; justify-content:center; padding:12px; }
+.profile-frame{ width:100%; max-width:520px; border-radius:16px; padding:8px; background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); box-shadow: 0 18px 50px rgba(0,0,0,0.5); border:1px solid rgba(255,255,255,0.04); }
+.profile-frame img{ width:100%; height:auto; aspect-ratio:1/1; object-fit:contain; border-radius:10px; display:block; }
+
+/* right: info */
+.right{ display:flex; flex-direction:column; justify-content:center; align-items:flex-start; padding:8px 24px; color:#e9fbfb; }
+.name{ font-size:34px; font-weight:800; color:#fff; }
+.role{ margin-top:8px; color:#cfeff0; font-weight:600; }
+.exp-badge{ margin-top:18px; padding:12px 22px; border-radius:12px; font-weight:800; background: linear-gradient(180deg,var(--turq-1),var(--turq-2)); color:#012; box-shadow: 0 16px 40px rgba(6,168,154,0.12); }
+.desc { margin-top:18px; color:#dff7f6; line-height:1.7; font-size:15px; max-width:720px; }
+
+/* skills */
+.skills-row{ margin-top:22px; display:flex; gap:10px; flex-wrap:wrap; }
+.skill{ display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:999px; background: linear-gradient(90deg,var(--turq-3),var(--turq-1)); color:#012; font-weight:800; box-shadow: 0 12px 30px rgba(6,168,154,0.12); }
+.download-row{ margin-top:18px; }
+.download-btn{ padding:12px 20px; border-radius:10px; background: linear-gradient(90deg,var(--turq-1),var(--turq-2)); color:#012; border:none; font-weight:800; cursor:pointer; box-shadow:0 14px 36px rgba(6,168,154,0.14); }
+
+/* Section Separator */
+.section-separator {
+  height: 60px;
+  background: linear-gradient(180deg, rgba(0,0,0,0.02), rgba(3,8,12,0.03));
+  width: 100%;
+}
+
+/* Projects full-width section */
+.projects-section{ width:100%; padding:32px 10px 80px; background: linear-gradient(180deg, rgba(0,0,0,0.02), rgba(3,8,12,0.03)); z-index:2; }
+.projects{ max-width:1400px; margin:0 auto; display:flex; flex-direction:column; gap:28px; }
+
+/* project card: image left 75% + info right 25% */
+.project-card{ display:flex; width:100%; gap:0; border-radius:12px; overflow:hidden; background:var(--card); min-height:420px; align-items:stretch; box-shadow:0 14px 40px rgba(0,0,0,0.35); }
+.media{ flex:0 0 75%; position:relative; overflow:hidden; min-height:420px; background:#000; }
+.media img{ width:100%; height:100%; object-fit:cover; display:block; transition:transform .6s ease; }
+.dots{ position:absolute; bottom:18px; left:50%; transform:translateX(-50%); display:flex; gap:8px; z-index:6; }
+.dot{ width:12px;height:12px;border-radius:50%;background:rgba(255,255,255,0.36);cursor:pointer;border:2px solid rgba(255,255,255,0.5) }
+.dot.active{ background:white; transform:scale(1.3) }
+
+/* info (right) */
+.pinfo{ flex:1; min-width:260px; padding:28px 30px; display:flex; flex-direction:column; gap:12px; justify-content:flex-start; background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00)); }
+.pnum{ color:#9fdfe9; font-weight:800; letter-spacing:2px; font-size:12px }
+.ptitle{ font-weight:800; font-size:20px; color:#fff }
+.pdesc{ color:#cfeff0; line-height:1.6; font-size:14px }
+
+/* tools and watch action */
+.tools{ display:flex; gap:8px; flex-wrap:wrap; margin-top:8px }
+.tool{ background: linear-gradient(90deg,var(--turq-2),var(--turq-1)); color:#012; padding:8px 10px; border-radius:10px; font-weight:800 }
+.actions{ margin-top:auto; display:flex; width:100% }
+.watch{ width:100%; padding:12px 14px; border-radius:10px; background:linear-gradient(90deg,var(--turq-1),var(--turq-2)); color:#012; font-weight:900; border:none; cursor:pointer; box-shadow:0 16px 42px rgba(6,168,154,0.12); }
+
+/* modal */
+.modal{ position:fixed; inset:0; display:none; align-items:center; justify-content:center; background: rgba(0,0,0,0.72); z-index:9999; padding:18px; }
+.modal.open{ display:flex; }
+.modal-card{ width:94%; max-width:1100px; background:#021019; border-radius:12px; padding:18px; box-shadow:0 30px 80px rgba(0,0,0,0.9); border:1px solid rgba(255,255,255,0.03); }
+.modal-close{ position:absolute; right:18px; top:14px; color:#cfeff0; font-size:26px; cursor:pointer }
+.video-wrap video{ width:100%; height:520px; background:#000; border-radius:8px }
+
+/* contact modal inputs */
+.contact-form{ display:flex; flex-direction:column; gap:10px; margin-top:12px }
+.contact-form input, .contact-form textarea{ padding:12px; border-radius:8px; border:1px solid rgba(255,255,255,0.04); background: rgba(255,255,255,0.02); color:#e9fbfb }
+
+/* responsive */
+@media (max-width:1100px){
+  .hero{ flex-direction:column; gap:18px; min-height:80vh; padding:28px 16px }
+  .col{ flex:0 0 100% }
+  .profile-frame{ width:62% }
+  .project-card{ flex-direction:column }
+  .media{ flex:0 0 auto; height:340px }
+  .video-wrap video{ height:320px }
+}
+@media (max-width:600px){
+  .name{ font-size:22px }
+  .profile-frame{ width:78% }
+  .media{ height:240px }
+  .video-wrap video{ height:220px }
+  .lang-switch {
+    right: 10px;
+    top: 10px;
+  }
+  .linkedin-btn {
+    right: 10px;
+    top: 70px;
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+}
+
+/* small helper */
+.center{ display:flex; align-items:center; justify-content:center }
+</style>
+</head>
+<body>
+
+<!-- language switch -->
+<div class="lang-switch" aria-hidden="false">
+  <button id="btn-en" class="active">English</button>
+  <button id="btn-ar">العربية</button>
+</div>
+
+<!-- LinkedIn Button -->
+<div class="linkedin-btn">
+  <a href="https://www.linkedin.com/in/samimouradfarid/" target="_blank" rel="noopener noreferrer">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+    </svg>
+    LinkedIn
+  </a>
+</div>
+
+<!-- background video (dark) -->
+<video id="bgVideo" class="bg-video" autoplay muted loop playsinline>
+  <!-- Replace with your actual background video -->
+  <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+<div class="bg-overlay"></div>
+
+<!-- main content -->
+<div class="container">
+
+  <!-- HERO -->
+  <section class="hero-wrap">
+    <div class="hero">
+      <div class="col left">
+        <div class="profile-frame">
+          <!-- Profile image - replace with your actual image -->
+          <img src="D:\Others\Personal\New folder\1.jpg" alt="Profile image" id="profileImage">
+        </div>
+      </div>
+
+      <div class="col right">
+        <div class="name">Sami Mourad Farid</div>
+        <div class="role">Business Intelligence Analyst — Power BI · SQL · Python</div>
+
+        <div class="exp-badge">⭐ 4+ Years of Experience</div>
+
+        <!-- DESCRIPTION: this is the text that will toggle between EN/AR -->
+        <div class="desc" id="heroDesc" data-en="Transforming raw data into actionable business insights via dashboards, analytics and automation. I build robust ETL pipelines, interactive Power BI reports, and scalable data solutions that drive business outcomes."
+             data-ar="تحويل البيانات الخام إلى رؤى عملية عبر لوحات عرض تفاعلية، تحليل تنبؤي، وأتمتة تقارير. أبني أنظمة ETL قوية، تقارير Power BI تفاعلية، وحلول بيانات قابلة للتوسع تدعم اتخاذ القرار.">
+          Transforming raw data into actionable business insights via dashboards, analytics and automation. I build robust ETL pipelines, interactive Power BI reports, and scalable data solutions that drive business outcomes.
+        </div>
+
+        <div class="skills-row">
+          <div class="skill">Power BI</div>
+          <div class="skill">Excel</div>
+          <div class="skill">SQL</div>
+          <div class="skill">ETL</div>
+          <div class="skill">Automation</div>
+          <div class="skill">Data Visualization</div>
+        </div>
+
+        <div class="download-row">
+          <button class="download-btn" onclick="downloadResume()">📄 Download Resume</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div> <!-- /container -->
+
+<!-- Section Separator -->
+<div class="section-separator"></div>
+
+<!-- Projects section -->
+<section class="projects-section" id="projectsSection">
+  <div class="projects">
+
+    <!-- Project 1 -->
+    <article class="project-card">
+      <div class="media">
+        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1600&q=80" alt="proj1" data-slides='["https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1600&q=80","https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1600&q=80","https://images.unsplash.com/photo-1543286386-713bdd548da4?w=1600&q=80"]'>
+        <div class="dots"></div>
+      </div>
+      <div class="pinfo">
+        <div class="pnum">PROJECT 01</div>
+        <div class="ptitle">Sales Performance Analytics Dashboard</div>
+        <div class="pdesc" data-en="Real-time sales tracking with predictive insights, regional breakdowns and automated reporting pipelines."
+             data-ar="لوحة متابعة مبيعات فورية مع تحليلات تنبؤية، تقسيم إقليمي، وأنابيب تقارير آلية.">
+          Real-time sales tracking with predictive insights, regional breakdowns and automated reporting pipelines.
+        </div>
+
+        <div class="tools">
+          <div class="tool">Power BI</div>
+          <div class="tool">DAX</div>
+          <div class="tool">Power Query (M)</div>
+          <div class="tool">SQL</div>
+        </div>
+
+        <div class="actions">
+          <button class="watch" data-video="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4">▶ Watch Video</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- Project 2 -->
+    <article class="project-card">
+      <div class="media">
+        <img src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=1600&q=80" alt="proj2" data-slides='["https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=1600&q=80","https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1600&q=80"]'>
+        <div class="dots"></div>
+      </div>
+      <div class="pinfo">
+        <div class="pnum">PROJECT 02</div>
+        <div class="ptitle">Customer Segmentation & Behavior Analysis</div>
+        <div class="pdesc" data-en="Segmentation models and behavioral analytics to increase retention and improve marketing ROI."
+             data-ar="نماذج التجزئة وتحليل السلوك لزيادة الاحتفاظ وتحسين العائد على الإنفاق الإعلاني.">
+          Segmentation models and behavioral analytics to increase retention and improve marketing ROI.
+        </div>
+
+        <div class="tools">
+          <div class="tool">Python</div>
+          <div class="tool">SQL</div>
+          <div class="tool">Tableau</div>
+        </div>
+
+        <div class="actions">
+          <button class="watch" data-video="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4">▶ Watch Video</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- Project 3 -->
+    <article class="project-card">
+      <div class="media">
+        <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1600&q=80" alt="proj3" data-slides='["https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1600&q=80","https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?w=1600&q=80"]'>
+        <div class="dots"></div>
+      </div>
+      <div class="pinfo">
+        <div class="pnum">PROJECT 03</div>
+        <div class="ptitle">Financial Performance & Budget Tracking</div>
+        <div class="pdesc" data-en="Variance analysis, budget forecasting and automated alerts for finance teams."
+             data-ar="تحليل الفروقات، توقعات الميزانية، وتنبيهات آلية لفِرَق المالية.">
+          Variance analysis, budget forecasting and automated alerts for finance teams.
+        </div>
+
+        <div class="tools">
+          <div class="tool">Power BI</div>
+          <div class="tool">Excel</div>
+          <div class="tool">Power Query</div>
+        </div>
+
+        <div class="actions">
+          <button class="watch" data-video="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4">▶ Watch Video</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- Project 4 -->
+    <article class="project-card">
+      <div class="media">
+        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1600&q=80" alt="proj4" data-slides='["https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1600&q=80","https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1600&q=80"]'>
+        <div class="dots"></div>
+      </div>
+      <div class="pinfo">
+        <div class="pnum">PROJECT 04</div>
+        <div class="ptitle">Supply Chain & Inventory Optimization</div>
+        <div class="pdesc" data-en="Demand forecasting and replenishment automation to reduce stockouts and optimize costs."
+             data-ar="تنبؤ الطلب وأتمتة إعادة التزويد لتقليل نفاد المخزون وتحسين التكاليف.">
+          Demand forecasting and replenishment automation to reduce stockouts and optimize costs.
+        </div>
+
+        <div class="tools">
+          <div class="tool">Tableau</div>
+          <div class="tool">Python</div>
+          <div class="tool">Forecasting</div>
+        </div>
+
+        <div class="actions">
+          <button class="watch" data-video="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4">▶ Watch Video</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- Project 5 -->
+    <article class="project-card">
+      <div class="media">
+        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1600&q=80" alt="proj5" data-slides='["https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1600&q=80","https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1600&q=80"]'>
+        <div class="dots"></div>
+      </div>
+      <div class="pinfo">
+        <div class="pnum">PROJECT 05</div>
+        <div class="ptitle">HR Analytics & Workforce Intelligence</div>
+        <div class="pdesc" data-en="Monitoring employee performance, turnover analysis and recruitment metrics dashboards."
+             data-ar="مراقبة أداء الموظفين، تحليل معدل الدوران، ولوحات مقاييس التوظيف.">
+          Monitoring employee performance, turnover analysis and recruitment metrics dashboards.
+        </div>
+
+        <div class="tools">
+          <div class="tool">Power BI</div>
+          <div class="tool">SQL</div>
+          <div class="tool">Predictive</div>
+        </div>
+
+        <div class="actions">
+          <button class="watch" data-video="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4">▶ Watch Video</button>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- footer -->
+<footer style="padding:28px 10px; text-align:center; color:#cfeff0;">
+  <div style="max-width:1400px; margin:0 auto;">© <strong>Sami Mourad Farid - samimouradfarid@gmail.com - +20 0111 300 11 60 </strong></div>
+</footer>
+
+<!-- VIDEO MODAL -->
+<div id="videoModal" class="modal" aria-hidden="true">
+  <div class="modal-card">
+    <div style="display:flex; justify-content:space-between; align-items:center">
+      <strong style="font-size:18px; color:#bff3f6">Project Video</strong>
+      <span class="modal-close" onclick="closeVideo()">✕</span>
+    </div>
+    <div class="video-wrap" style="margin-top:12px">
+      <video id="modalVideoPlayer" controls controlsList="nodownload" style="width:100%;height:520px;background:#000;border-radius:8px">
+        <source id="modalVideoSrc" src="" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ===== Language toggle (only descriptions change) ===== */
+const btnEn = document.getElementById('btn-en');
+const btnAr = document.getElementById('btn-ar');
+
+function setLanguage(lang){
+  // hero desc + all data-en/ar texts
+  document.querySelectorAll('[data-en]').forEach(el=>{
+    el.innerText = el.getAttribute(lang === 'ar' ? 'data-ar' : 'data-en');
+  });
+
+  // switch active button
+  btnEn.classList.toggle('active', lang === 'en');
+  btnAr.classList.toggle('active', lang === 'ar');
+}
+
+// default to English
+setLanguage('en');
+btnEn.addEventListener('click', ()=> setLanguage('en'));
+btnAr.addEventListener('click', ()=> setLanguage('ar'));
+
+/* ===== Background video auto pause when projects visible ===== */
+const bgVideo = document.getElementById('bgVideo');
+const projectsSection = document.getElementById('projectsSection');
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      bgVideo.pause();
+    } else {
+      bgVideo.play().catch(()=>{});
+    }
+  });
+},{threshold:0.15});
+if(projectsSection) observer.observe(projectsSection);
+
+/* ===== Project Slideshows (auto + dots click) ===== */
+document.querySelectorAll('.media').forEach(media=>{
+  const img = media.querySelector('img');
+  const slides = JSON.parse(img.getAttribute('data-slides') || '[]');
+  const dotsWrap = media.querySelector('.dots');
+  if(slides.length === 0) return;
+
+  let current = 0;
+  slides.forEach((s, i)=>{
+    const dot = document.createElement('div');
+    dot.className = 'dot' + (i===0 ? ' active':'');
+    dot.addEventListener('click', ()=>{
+      current = i;
+      updateSlide();
+      resetTimer();
+    });
+    dotsWrap.appendChild(dot);
+  });
+  const dots = dotsWrap.querySelectorAll('.dot');
+
+  function updateSlide(){
+    img.src = slides[current];
+    dots.forEach((d,i)=> d.classList.toggle('active', i===current));
+  }
+
+  function nextSlide(){
+    current = (current + 1) % slides.length;
+    updateSlide();
+  }
+
+  let timer = setInterval(nextSlide, 4000);
+  function resetTimer(){
+    clearInterval(timer);
+    timer = setInterval(nextSlide, 4000);
+  }
+});
+
+/* ===== Watch Video Modal ===== */
+const videoModal = document.getElementById('videoModal');
+const modalVideoPlayer = document.getElementById('modalVideoPlayer');
+const modalVideoSrc = document.getElementById('modalVideoSrc');
+
+document.querySelectorAll('.watch').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const videoSrc = btn.getAttribute('data-video');
+    modalVideoSrc.src = videoSrc;
+    modalVideoPlayer.load();
+    videoModal.classList.add('open');
+    videoModal.setAttribute('aria-hidden','false');
+  });
+});
+
+function closeVideo(){
+  videoModal.classList.remove('open');
+  videoModal.setAttribute('aria-hidden','true');
+  modalVideoPlayer.pause();
+  modalVideoSrc.src = '';
+}
+
+/* ===== Download Resume ===== */
+function downloadResume(){
+  const link = document.createElement('a');
+  link.href = 'Sami_Mourad_CV.pdf'; // Replace with your actual PDF file
+  link.download = 'Sami_Mourad_CV.pdf';
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
+/* ===== Modal backdrop close ===== */
+document.querySelectorAll('.modal').forEach(m=>{
+  m.addEventListener('click', ev=>{
+    if(ev.target === m){
+      if(m === videoModal) closeVideo();
+    }
+  });
+});
+
+/* ===== ESC key close ===== */
+document.addEventListener('keydown', e=>{
+  if(e.key === 'Escape'){
+    if(videoModal.classList.contains('open')) closeVideo();
+  }
+});
+</script>
+</body>
+</html>
