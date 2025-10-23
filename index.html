@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sami Mourad Farid — Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <style>
         :root{
           --bg-dark:#041421;
@@ -88,7 +89,45 @@
           background: linear-gradient(180deg, rgba(2,8,12,0.28), rgba(2,8,12,0.48)); 
         }
 
-        /* Music control button - FIXED SIZE */
+        /* Contact Button - FIXED SIZE */
+        .contact-btn {
+          position:fixed;
+          right:20px;
+          top:110px;
+          z-index:9999;
+          background: rgba(255,255,255,0.03);
+          padding:8px 8px;
+          border-radius:10px;
+          border:2px solid rgba(255,255,255,0.04);
+          box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+          transition: all 0.3s ease;
+          cursor: pointer;
+          min-width: 140px; /* Fixed width to prevent size changes */
+          text-align: center;
+        }
+
+        .contact-btn a {
+          color: var(--text-dark);
+          text-decoration: none;
+          font-weight:700;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          transition: all 0.3s ease;
+          width: 100%;
+        }
+
+        .contact-btn:hover {
+          background: linear-gradient(90deg,var(--turq-1),var(--turq-2));
+          box-shadow: 0 12px 30px rgba(6,168,154,0.12);
+        }
+
+        .contact-btn:hover a {
+          color: #012;
+        }
+
+        /* Music Control Button - FIXED SIZE */
         .music-control {
           position:fixed;
           right:20px;
@@ -237,6 +276,173 @@
         .music-prompt-btn.secondary:hover {
           background: rgba(255,255,255,0.15);
           box-shadow: 0 10px 25px rgba(255,255,255,0.1);
+        }
+
+        /* Contact Modal */
+        .contact-modal {
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          background: rgba(2, 16, 25, 0.95);
+          padding: 30px;
+          border-radius: 16px;
+          z-index: 10000;
+          border: 2px solid var(--turq-1);
+          box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+          max-width: 500px;
+          width: 90%;
+          display: none;
+        }
+
+        .contact-modal.open {
+          display: block;
+        }
+
+        .contact-modal-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 20px;
+        }
+
+        .contact-modal-title {
+          color: var(--turq-3);
+          font-size: 20px;
+          font-weight: 700;
+        }
+
+        .contact-modal-close {
+          background: transparent;
+          border: none;
+          color: var(--text-dark);
+          font-size: 20px;
+          cursor: pointer;
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: all 0.3s ease;
+        }
+
+        .contact-modal-close:hover {
+          background: rgba(255,255,255,0.1);
+        }
+
+        .contact-form {
+          display: flex;
+          flex-direction: column;
+          gap: 15px;
+        }
+
+        .form-group {
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+        }
+
+        .form-label {
+          color: var(--text-dark);
+          font-weight: 600;
+          font-size: 14px;
+        }
+
+        .form-input, .form-textarea {
+          padding: 12px;
+          border-radius: 8px;
+          border: 1px solid rgba(255,255,255,0.1);
+          background: rgba(255,255,255,0.05);
+          color: var(--text-dark);
+          font-family: 'Poppins', sans-serif;
+          transition: all 0.3s ease;
+        }
+
+        .form-input:focus, .form-textarea:focus {
+          outline: none;
+          border-color: var(--turq-1);
+          box-shadow: 0 0 0 2px rgba(0,194,209,0.2);
+        }
+
+        .form-textarea {
+          resize: vertical;
+          min-height: 120px;
+        }
+
+        .form-submit {
+          background: linear-gradient(90deg,var(--turq-1),var(--turq-2));
+          color: #012;
+          border: none;
+          padding: 12px 20px;
+          border-radius: 10px;
+          font-weight: 800;
+          cursor: pointer;
+          font-size: 14px;
+          transition: all 0.3s ease;
+          margin-top: 10px;
+        }
+
+        .form-submit:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 10px 25px rgba(6,168,154,0.3);
+        }
+
+        .form-submit:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+          transform: none;
+          box-shadow: none;
+        }
+
+        .success-message {
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          background: rgba(2, 16, 25, 0.95);
+          padding: 30px;
+          border-radius: 16px;
+          text-align: center;
+          z-index: 10001;
+          border: 2px solid var(--turq-1);
+          box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+          max-width: 400px;
+          width: 90%;
+          display: none;
+        }
+
+        .success-message.open {
+          display: block;
+        }
+
+        .success-message h3 {
+          color: var(--turq-3);
+          margin-bottom: 15px;
+          font-size: 20px;
+        }
+
+        .success-message p {
+          color: #cfeff0;
+          margin-bottom: 20px;
+          line-height: 1.5;
+        }
+
+        .success-message button {
+          background: linear-gradient(90deg,var(--turq-1),var(--turq-2));
+          color: #012;
+          border: none;
+          padding: 12px 20px;
+          border-radius: 10px;
+          font-weight: 800;
+          cursor: pointer;
+          font-size: 14px;
+          transition: all 0.3s ease;
+        }
+
+        .success-message button:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 10px 25px rgba(6,168,154,0.3);
         }
 
         /* top language switch */
@@ -611,9 +817,16 @@
             padding: 6px 12px;
             font-size: 14px;
           }
+          .contact-btn {
+            right: 10px;
+            top: 100px;
+            padding: 8px 15px;
+            font-size: 14px;
+            min-width: 120px;
+          }
           .music-control {
             right: 10px;
-            top: 120px;
+            top: 130px;
             padding: 8px 15px;
             font-size: 14px;
             min-width: 120px;
@@ -685,8 +898,38 @@
   <p id="musicPromptText">Would you like to enable background music for a better experience?</p>
   <div class="music-prompt-buttons">
     <button class="music-prompt-btn" onclick="enableMusic()" id="musicPromptPlayBtn">Play Music</button>
-    <button class="music-prompt-btn secondary" onclick="disableMusic()" id="musicPromptDontPlayBtn">Don't Play Music</button>
+    <button class="music-prompt-btn secondary" onclick="disableMusic()" id="musicPromptDontPlayBtn">Pause Music</button>
   </div>
+</div>
+
+<!-- Contact Modal -->
+<div id="contactModal" class="contact-modal">
+  <div class="contact-modal-header">
+    <h3 class="contact-modal-title" id="contactModalTitle">Contact Me</h3>
+    <button class="contact-modal-close" onclick="closeContactModal()">✕</button>
+  </div>
+  <form class="contact-form" id="contactForm">
+    <div class="form-group">
+      <label class="form-label" for="contactName" id="contactNameLabel">Name</label>
+      <input type="text" id="contactName" class="form-input" required>
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="contactSubject" id="contactSubjectLabel">Subject</label>
+      <input type="text" id="contactSubject" class="form-input" required>
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="contactMessage" id="contactMessageLabel">Message</label>
+      <textarea id="contactMessage" class="form-textarea" required></textarea>
+    </div>
+    <button type="submit" class="form-submit" id="contactSubmitBtn">Send Message</button>
+  </form>
+</div>
+
+<!-- Success Message -->
+<div id="successMessage" class="success-message">
+  <h3 id="successTitle">Message Sent Successfully!</h3>
+  <p id="successText">Thank you for your message. I will get back to you as soon as possible.</p>
+  <button onclick="closeSuccessMessage()" id="successButton">OK</button>
 </div>
 
 <!-- language switch -->
@@ -702,6 +945,16 @@
       <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
     </svg>
     LinkedIn
+  </a>
+</div>
+
+<!-- Contact Button -->
+<div class="contact-btn" id="contactButton">
+  <a href="#" onclick="openContactModal(event)">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+    </svg>
+    <span id="contactText">Contact Me</span>
   </a>
 </div>
 
@@ -920,7 +1173,7 @@
 
 <!-- footer -->
 <footer style="padding:28px 10px; text-align:center; color:#cfeff0; position:relative; z-index:3;">
-  <div style="max-width:1400px; margin:0 auto;">© <strong>Sami Mourad Farid - samimouradfarid@gmail.com - +20 0111 300 11 60 </strong></div>
+  <div style="max-width:1400px; margin:0 auto;">© <strong>Sami Mourad Farid - samimouradfarid@gmail.com - +20 0122 44 81 456 </strong></div>
 </footer>
 
 <!-- VIDEO MODAL -->
@@ -940,6 +1193,11 @@
 </div>
 
 <script>
+// Initialize EmailJS
+(function() {
+  emailjs.init("fZM94KjzGpP7pJJmE");
+})();
+
 // Companies data - using online image URLs that will work
 const companies = [
     { name: 'Giza Systems', logo: 'Giza Systems.png' },
@@ -965,6 +1223,38 @@ const loadingScreen = document.getElementById('loadingScreen');
 let musicPlaying = false;
 let musicPromptLanguage = 'en';
 
+// Contact modal elements
+const contactModal = document.getElementById('contactModal');
+const contactForm = document.getElementById('contactForm');
+const contactText = document.getElementById('contactText');
+const successMessage = document.getElementById('successMessage');
+
+// Contact modal translations
+const contactTranslations = {
+  en: {
+    contactBtn: "Contact Me",
+    modalTitle: "Contact Me",
+    nameLabel: "Name",
+    subjectLabel: "Subject",
+    messageLabel: "Message",
+    submitBtn: "Send Message",
+    successTitle: "Message Sent Successfully!",
+    successText: "Thank you for your message. I will get back to you as soon as possible.",
+    successButton: "OK"
+  },
+  ar: {
+    contactBtn: "تواصل معي",
+    modalTitle: "تواصل معي",
+    nameLabel: "الاسم",
+    subjectLabel: "الموضوع",
+    messageLabel: "الرسالة",
+    submitBtn: "إرسال الرسالة",
+    successTitle: "تم إرسال الرسالة بنجاح!",
+    successText: "شكرًا لك على رسالتك. سأعود إليك في أقرب وقت ممكن.",
+    successButton: "موافق"
+  }
+};
+
 // Music prompt translations
 const musicPromptTranslations = {
   en: {
@@ -981,6 +1271,21 @@ const musicPromptTranslations = {
   }
 };
 
+// Update contact modal language
+function updateContactLanguage(lang) {
+  const translations = contactTranslations[lang];
+  
+  contactText.textContent = translations.contactBtn;
+  document.getElementById('contactModalTitle').textContent = translations.modalTitle;
+  document.getElementById('contactNameLabel').textContent = translations.nameLabel;
+  document.getElementById('contactSubjectLabel').textContent = translations.subjectLabel;
+  document.getElementById('contactMessageLabel').textContent = translations.messageLabel;
+  document.getElementById('contactSubmitBtn').textContent = translations.submitBtn;
+  document.getElementById('successTitle').textContent = translations.successTitle;
+  document.getElementById('successText').textContent = translations.successText;
+  document.getElementById('successButton').textContent = translations.successButton;
+}
+
 // Update music prompt language
 function updateMusicPromptLanguage(lang) {
   musicPromptLanguage = lang;
@@ -995,6 +1300,63 @@ function updateMusicPromptLanguage(lang) {
   document.getElementById('musicPromptEn').classList.toggle('active', lang === 'en');
   document.getElementById('musicPromptAr').classList.toggle('active', lang === 'ar');
 }
+
+// Open contact modal
+function openContactModal(e) {
+  e.preventDefault();
+  contactModal.classList.add('open');
+}
+
+// Close contact modal
+function closeContactModal() {
+  contactModal.classList.remove('open');
+  contactForm.reset();
+}
+
+// Close success message
+function closeSuccessMessage() {
+  successMessage.classList.remove('open');
+}
+
+// Handle contact form submission
+contactForm.addEventListener('submit', function(e) {
+  e.preventDefault();
+  
+  const submitBtn = document.getElementById('contactSubmitBtn');
+  const originalText = submitBtn.textContent;
+  
+  // Disable button and show loading state
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Sending...';
+  
+  // Get form data
+  const formData = {
+    name: document.getElementById('contactName').value,
+    subject: document.getElementById('contactSubject').value,
+    message: document.getElementById('contactMessage').value
+  };
+  
+  // Send email using EmailJS
+  emailjs.send('service_nwqbdqp', 'template_dmv1qle', formData)
+    .then(function(response) {
+      console.log('SUCCESS!', response.status, response.text);
+      
+      // Close contact modal and show success message
+      closeContactModal();
+      successMessage.classList.add('open');
+      
+      // Reset button
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalText;
+    }, function(error) {
+      console.log('FAILED...', error);
+      alert('Failed to send message. Please try again later.');
+      
+      // Reset button
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalText;
+    });
+});
 
 // Close prompt and play music (for X button)
 function closePromptAndPlayMusic() {
@@ -1235,6 +1597,16 @@ function setLanguage(lang){
   // switch active button
   btnEn.classList.toggle('active', lang === 'en');
   btnAr.classList.toggle('active', lang === 'ar');
+  
+  // Update contact modal language
+  updateContactLanguage(lang);
+  
+  // Update music control button text
+  if (musicPlaying) {
+    musicText.textContent = lang === 'en' ? 'Pause Music' : 'إيقاف الموسيقى';
+  } else {
+    musicText.textContent = lang === 'en' ? 'Play Music' : 'تشغيل الموسيقى';
+  }
 }
 
 // default to English
@@ -1362,6 +1734,8 @@ document.querySelectorAll('.modal').forEach(m=>{
   m.addEventListener('click', ev=>{
     if(ev.target === m){
       if(m === videoModal) closeVideo();
+      if(m === contactModal) closeContactModal();
+      if(m === successMessage) closeSuccessMessage();
     }
   });
 });
@@ -1370,6 +1744,8 @@ document.querySelectorAll('.modal').forEach(m=>{
 document.addEventListener('keydown', e=>{
   if(e.key === 'Escape'){
     if(videoModal.classList.contains('open')) closeVideo();
+    if(contactModal.classList.contains('open')) closeContactModal();
+    if(successMessage.classList.contains('open')) closeSuccessMessage();
   }
 });
 
