@@ -759,6 +759,203 @@
         .actions{ margin-top:auto; display:flex; width:100% }
         .watch{ width:100%; padding:12px 14px; border-radius:10px; background:linear-gradient(90deg,var(--turq-1),var(--turq-2)); color:#012; font-weight:900; border:none; cursor:pointer; box-shadow:0 16px 42px rgba(6,168,154,0.12); }
 
+        /* Certificates Section */
+        .certificates-section {
+          width: 100%;
+          padding: 80px 20px;
+          background: linear-gradient(180deg, rgba(0,0,0,0.02), rgba(3,8,12,0.03));
+          position: relative;
+          z-index: 3;
+        }
+
+        .certificates-container {
+          max-width: 1400px;
+          margin: 0 auto;
+          text-align: center;
+          position: relative;
+          z-index: 3;
+        }
+
+        .certificates-title {
+          font-size: 32px;
+          font-weight: 800;
+          color: #fff;
+          margin-bottom: 50px;
+          text-align: center;
+        }
+
+        .certificates-slider {
+          position: relative;
+          max-width: 1300px;
+          margin: 0 auto;
+          overflow: hidden;
+          cursor: grab;
+        }
+
+        .certificates-slider:active {
+          cursor: grabbing;
+        }
+
+        .certificates-track {
+          display: flex;
+          transition: transform 0.5s ease-in-out;
+          gap: 30px;
+          touch-action: pan-y;
+        }
+
+        .certificate-item {
+          flex: 0 0 350px;
+          height: 450px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: flex-start;
+          background: rgba(255,255,255,0.05);
+          border-radius: 16px;
+          border: 1px solid rgba(255,255,255,0.08);
+          padding: 25px;
+          transition: all 0.3s ease;
+          box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+          user-select: none;
+          -webkit-user-drag: none;
+          cursor: pointer;
+        }
+
+        .certificate-item:hover {
+          background: rgba(255,255,255,0.08);
+          transform: translateY(-8px);
+          box-shadow: 0 15px 40px rgba(6,168,154,0.2);
+        }
+
+        .certificate-image {
+          width: 100%;
+          height: 320px;
+          border-radius: 12px;
+          overflow: hidden;
+          margin-bottom: 20px;
+          background: #000;
+        }
+
+        .certificate-image img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: transform 0.3s ease;
+        }
+
+        .certificate-item:hover .certificate-image img {
+          transform: scale(1.05);
+        }
+
+        .certificate-title {
+          color: var(--text-dark);
+          font-weight: 700;
+          font-size: 18px;
+          text-align: center;
+          margin-top: auto;
+        }
+
+        .certificates-arrow {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          background: rgba(255,255,255,0.08);
+          border: 1px solid rgba(255,255,255,0.12);
+          color: var(--text-dark);
+          width: 60px;
+          height: 60px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          font-size: 24px;
+          font-weight: bold;
+          transition: all 0.3s ease;
+          z-index: 10;
+        }
+
+        .certificates-arrow:hover {
+          background: linear-gradient(90deg,var(--turq-1),var(--turq-2));
+          color: #012;
+          transform: translateY(-50%) scale(1.1);
+        }
+
+        .certificates-arrow-left {
+          left: -30px;
+        }
+
+        .certificates-arrow-right {
+          right: -30px;
+        }
+
+        /* Certificate Modal */
+        .certificate-modal {
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          background: rgba(2, 16, 25, 0.95);
+          padding: 30px;
+          border-radius: 16px;
+          z-index: 10002;
+          border: 2px solid var(--turq-1);
+          box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+          max-width: 900px;
+          width: 90%;
+          display: none;
+        }
+
+        .certificate-modal.open {
+          display: block;
+        }
+
+        .certificate-modal-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 20px;
+        }
+
+        .certificate-modal-title {
+          color: var(--turq-3);
+          font-size: 24px;
+          font-weight: 700;
+        }
+
+        .certificate-modal-close {
+          background: transparent;
+          border: none;
+          color: var(--text-dark);
+          font-size: 20px;
+          cursor: pointer;
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: all 0.3s ease;
+        }
+
+        .certificate-modal-close:hover {
+          background: rgba(255,255,255,0.1);
+        }
+
+        .certificate-modal-image {
+          width: 100%;
+          max-height: 600px;
+          border-radius: 12px;
+          overflow: hidden;
+          background: #000;
+        }
+
+        .certificate-modal-image img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+        }
+
         /* modal */
         .modal{ position:fixed; inset:0; display:none; align-items:center; justify-content:center; background: rgba(0,0,0,0.72); z-index:9999; padding:18px; }
         .modal.open{ display:flex; }
@@ -805,6 +1002,27 @@
           .company-logo {
             flex: 0 0 220px;
             height: 140px;
+          }
+          .certificates-slider {
+            max-width: 90%;
+          }
+          .certificates-arrow {
+            width: 50px;
+            height: 50px;
+            font-size: 20px;
+          }
+          .certificates-arrow-left {
+            left: -25px;
+          }
+          .certificates-arrow-right {
+            right: -25px;
+          }
+          .certificate-item {
+            flex: 0 0 300px;
+            height: 400px;
+          }
+          .certificate-image {
+            height: 280px;
           }
         }
         @media (max-width:600px){
@@ -861,6 +1079,28 @@
             left: -15px;
           }
           .arrow-right {
+            right: -15px;
+          }
+          .certificates-title {
+            font-size: 24px;
+            margin-bottom: 40px;
+          }
+          .certificate-item {
+            flex: 0 0 250px;
+            height: 350px;
+          }
+          .certificate-image {
+            height: 230px;
+          }
+          .certificates-arrow {
+            width: 40px;
+            height: 40px;
+            font-size: 18px;
+          }
+          .certificates-arrow-left {
+            left: -15px;
+          }
+          .certificates-arrow-right {
             right: -15px;
           }
           .music-prompt-buttons {
@@ -954,6 +1194,17 @@
   <h3 id="successTitle">Message Sent Successfully!</h3>
   <p id="successText">Thank you for your message. I will get back to you as soon as possible.</p>
   <button onclick="closeSuccessMessage()" id="successButton">OK</button>
+</div>
+
+<!-- Certificate Modal -->
+<div id="certificateModal" class="certificate-modal">
+  <div class="certificate-modal-header">
+    <h3 class="certificate-modal-title" id="certificateModalTitle">Certificate Title</h3>
+    <button class="certificate-modal-close" onclick="closeCertificateModal()">✕</button>
+  </div>
+  <div class="certificate-modal-image">
+    <img id="certificateModalImage" src="" alt="Certificate">
+  </div>
 </div>
 
 <!-- language switch -->
@@ -1197,6 +1448,21 @@
   </div>
 </section>
 
+<!-- Certificates Section -->
+<section class="certificates-section">
+  <div class="certificates-container">
+    <h2 class="certificates-title" id="certificatesTitle" data-en="Certificates"
+        data-ar="الشهادات">Certificates</h2>
+    <div class="certificates-slider">
+      <button class="certificates-arrow certificates-arrow-left" onclick="slideCertificatesLeft()">❮</button>
+      <div class="certificates-track" id="certificatesTrack">
+        <!-- Certificate items will be added here by JavaScript -->
+      </div>
+      <button class="certificates-arrow certificates-arrow-right" onclick="slideCertificatesRight()">❯</button>
+    </div>
+  </div>
+</section>
+
 <!-- footer -->
 <footer style="padding:28px 10px; text-align:center; color:#cfeff0; position:relative; z-index:3;">
   <div style="max-width:1400px; margin:0 auto;">© <strong>Sami Mourad Farid - samimouradfarid@gmail.com - +20 0122 44 81 456 </strong></div>
@@ -1238,8 +1504,44 @@ const companies = [
     { name: 'Bigo', logo: 'Bigo Logo.png' },  
 ];
 
+// Certificates data
+const certificates = [
+    { 
+        title: "Mashreq Bank Experiance Letter", 
+        image: "Mashreq CR.jpg",
+        titleAr: "اشهادة خبرة من بنك المشرق"
+    },
+    { 
+        title: "Etisalat Experiance Letter", 
+        image: "Etisalat CR.jpg",
+        titleAr: "شهادة خبرة من اتصالات"
+    },
+    { 
+        title: "Linkedin : SQL: Data Reporting and Analysis (2025) ", 
+        image: "Linkedin CR.jpg",
+        titleAr: "SQL من لينكد ان (2025)"
+    },
+    { 
+        title: "Udemy : The Ultimate MySQL Bootcamp (2025)", 
+        image: "Udimy CR Ultimate.jpg",
+        titleAr: "Udemy MySql (2025) شهادة في"
+    },
+    { 
+        title: "Udemy : Essential Statistics for Data (2024)", 
+        image: "Udimy CR Statistics.jpg",
+        titleAr: "Udemy (2025) شهادة في الحصاء من"
+    },
+    { 
+        title: "Udemy: SQL for Data Analysis (2024)", 
+        image: "Udimy CR Data.jpg",
+        titleAr: "Udemy (2025) شهادة في تحليل البيانات من"
+    }
+];
+
 let currentSlide = 0;
 let maxSlides = 0;
+let currentCertSlide = 0;
+let maxCertSlides = 0;
 
 // Background music control
 const bgMusic = document.getElementById('bgMusic');
@@ -1255,6 +1557,7 @@ const contactModal = document.getElementById('contactModal');
 const contactForm = document.getElementById('contactForm');
 const contactText = document.getElementById('contactText');
 const successMessage = document.getElementById('successMessage');
+const certificateModal = document.getElementById('certificateModal');
 
 // Contact modal translations
 const contactTranslations = {
@@ -1292,7 +1595,7 @@ const musicPromptTranslations = {
     title: "🎵 Background Music",
     text: "Would you like to enable background music for a better experience?",
     playBtn: "Play Music",
-    dontPlayBtn: "Don't Play Music"
+    dontPlayBtn: "Pause Play Music"
   },
   ar: {
     title: "🎵 موسيقى الخلفية",
@@ -1349,6 +1652,18 @@ function closeContactModal() {
 // Close success message
 function closeSuccessMessage() {
   successMessage.classList.remove('open');
+}
+
+// Open certificate modal
+function openCertificateModal(title, image, lang) {
+  document.getElementById('certificateModalTitle').textContent = title;
+  document.getElementById('certificateModalImage').src = image;
+  certificateModal.classList.add('open');
+}
+
+// Close certificate modal
+function closeCertificateModal() {
+  certificateModal.classList.remove('open');
 }
 
 // Handle contact form submission - FIXED VERSION
@@ -1542,6 +1857,61 @@ function initCompaniesSlider() {
   }, 100);
 }
 
+// Initialize certificates slider
+function initCertificatesSlider() {
+  const track = document.getElementById('certificatesTrack');
+  
+  certificates.forEach(certificate => {
+    const certDiv = document.createElement('div');
+    certDiv.className = 'certificate-item';
+    
+    // Create image container
+    const imageDiv = document.createElement('div');
+    imageDiv.className = 'certificate-image';
+    
+    // Create image
+    const img = document.createElement('img');
+    img.src = certificate.image;
+    img.alt = certificate.title;
+    
+    // Add error handling to debug missing images
+    img.onerror = function() {
+      console.error('❌ Failed to load certificate image:', certificate.image);
+    };
+    
+    img.onload = function() {
+      console.log('✅ Successfully loaded certificate:', certificate.title);
+    };
+    
+    imageDiv.appendChild(img);
+    
+    // Create title
+    const titleDiv = document.createElement('div');
+    titleDiv.className = 'certificate-title';
+    titleDiv.textContent = certificate.title;
+    titleDiv.setAttribute('data-en', certificate.title);
+    titleDiv.setAttribute('data-ar', certificate.titleAr);
+    
+    // Add click event to open modal
+    certDiv.addEventListener('click', function() {
+      const currentLang = document.getElementById('btn-en').classList.contains('active') ? 'en' : 'ar';
+      const title = currentLang === 'en' ? certificate.title : certificate.titleAr;
+      openCertificateModal(title, certificate.image, currentLang);
+    });
+    
+    certDiv.appendChild(imageDiv);
+    certDiv.appendChild(titleDiv);
+    track.appendChild(certDiv);
+  });
+  
+  // Calculate max slides after certificates are loaded
+  setTimeout(() => {
+    const certs = track.querySelectorAll('.certificate-item');
+    const visibleCerts = Math.floor(track.parentElement.offsetWidth / (certs[0].offsetWidth + 30));
+    maxCertSlides = Math.max(0, certs.length - visibleCerts);
+  }, 100);
+}
+
 // Slide functions - FIXED
 function slideLeft() {
   const track = document.getElementById('companiesTrack');
@@ -1573,6 +1943,37 @@ function slideRight() {
   updateArrowVisibility();
 }
 
+// Certificate slide functions
+function slideCertificatesLeft() {
+  const track = document.getElementById('certificatesTrack');
+  const certs = track.querySelectorAll('.certificate-item');
+  if (certs.length === 0) return;
+  
+  const certWidth = certs[0].offsetWidth + 30; // width + gap
+  
+  currentCertSlide = Math.max(currentCertSlide - 1, 0);
+  track.style.transform = `translateX(-${currentCertSlide * certWidth}px)`;
+  
+  updateCertificatesArrowVisibility();
+}
+
+function slideCertificatesRight() {
+  const track = document.getElementById('certificatesTrack');
+  const certs = track.querySelectorAll('.certificate-item');
+  if (certs.length === 0) return;
+  
+  const certWidth = certs[0].offsetWidth + 30; // width + gap
+  
+  // Calculate max slides dynamically
+  const visibleCerts = Math.floor(track.parentElement.offsetWidth / certWidth);
+  const maxCertSlides = Math.max(0, certs.length - visibleCerts);
+  
+  currentCertSlide = Math.min(currentCertSlide + 1, maxCertSlides);
+  track.style.transform = `translateX(-${currentCertSlide * certWidth}px)`;
+  
+  updateCertificatesArrowVisibility();
+}
+
 // Update arrow visibility based on current position
 function updateArrowVisibility() {
   const leftArrow = document.querySelector('.arrow-left');
@@ -1592,6 +1993,33 @@ function updateArrowVisibility() {
   const maxSlides = Math.max(0, logos.length - visibleLogos);
   
   if (currentSlide >= maxSlides) {
+    rightArrow.style.opacity = '0.5';
+    rightArrow.style.cursor = 'not-allowed';
+  } else {
+    rightArrow.style.opacity = '1';
+    rightArrow.style.cursor = 'pointer';
+  }
+}
+
+// Update certificates arrow visibility
+function updateCertificatesArrowVisibility() {
+  const leftArrow = document.querySelector('.certificates-arrow-left');
+  const rightArrow = document.querySelector('.certificates-arrow-right');
+  
+  if (currentCertSlide === 0) {
+    leftArrow.style.opacity = '0.5';
+    leftArrow.style.cursor = 'not-allowed';
+  } else {
+    leftArrow.style.opacity = '1';
+    leftArrow.style.cursor = 'pointer';
+  }
+  
+  const track = document.getElementById('certificatesTrack');
+  const certs = track.querySelectorAll('.certificate-item');
+  const visibleCerts = Math.floor(track.parentElement.offsetWidth / (certs[0].offsetWidth + 30));
+  const maxCertSlides = Math.max(0, certs.length - visibleCerts);
+  
+  if (currentCertSlide >= maxCertSlides) {
     rightArrow.style.opacity = '0.5';
     rightArrow.style.cursor = 'not-allowed';
   } else {
@@ -1791,6 +2219,7 @@ document.querySelectorAll('.modal').forEach(m=>{
       if(m === videoModal) closeVideo();
       if(m === contactModal) closeContactModal();
       if(m === successMessage) closeSuccessMessage();
+      if(m === certificateModal) closeCertificateModal();
     }
   });
 });
@@ -1801,6 +2230,7 @@ document.addEventListener('keydown', e=>{
     if(videoModal.classList.contains('open')) closeVideo();
     if(contactModal.classList.contains('open')) closeContactModal();
     if(successMessage.classList.contains('open')) closeSuccessMessage();
+    if(certificateModal.classList.contains('open')) closeCertificateModal();
   }
 });
 
@@ -1864,18 +2294,82 @@ function initCompaniesSwipe() {
   }
 }
 
+// Add swipe functionality to certificates slider
+function initCertificatesSwipe() {
+  const slider = document.querySelector('.certificates-slider');
+  const track = document.getElementById('certificatesTrack');
+  let startX = 0;
+  let currentX = 0;
+  let isDragging = false;
+  
+  slider.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    startX = e.clientX;
+    currentX = startX;
+    slider.style.cursor = 'grabbing';
+  });
+  
+  slider.addEventListener('touchstart', (e) => {
+    isDragging = true;
+    startX = e.touches[0].clientX;
+    currentX = startX;
+  });
+  
+  document.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    currentX = e.clientX;
+  });
+  
+  document.addEventListener('touchmove', (e) => {
+    if (!isDragging) return;
+    currentX = e.touches[0].clientX;
+  });
+  
+  document.addEventListener('mouseup', () => {
+    if (!isDragging) return;
+    handleCertificatesSwipe();
+    isDragging = false;
+    slider.style.cursor = 'grab';
+  });
+  
+  document.addEventListener('touchend', () => {
+    if (!isDragging) return;
+    handleCertificatesSwipe();
+    isDragging = false;
+  });
+  
+  function handleCertificatesSwipe() {
+    const diffX = startX - currentX;
+    const swipeThreshold = 50;
+    
+    if (Math.abs(diffX) > swipeThreshold) {
+      if (diffX > 0) {
+        // Swipe left - next slide
+        slideCertificatesRight();
+      } else {
+        // Swipe right - previous slide
+        slideCertificatesLeft();
+      }
+    }
+  }
+}
+
 // Initialize companies slider when page loads
 document.addEventListener('DOMContentLoaded', () => {
   initCompaniesSlider();
   initCompaniesSwipe();
+  initCertificatesSlider();
+  initCertificatesSwipe();
   setTimeout(() => {
     startAutoSlide();
     updateArrowVisibility();
+    updateCertificatesArrowVisibility();
   }, 1000); // Start auto-slide after 1 second
 });
 
 // Update arrow visibility on window resize
 window.addEventListener('resize', updateArrowVisibility);
+window.addEventListener('resize', updateCertificatesArrowVisibility);
 </script>
 </body>
 </html>
