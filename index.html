@@ -93,7 +93,7 @@
         .contact-btn {
           position:fixed;
           right:20px;
-          top:110px;
+          top:120px;
           z-index:9999;
           background: rgba(255,255,255,0.03);
           padding:8px 8px;
@@ -131,7 +131,7 @@
         .music-control {
           position:fixed;
           right:20px;
-          top:140px;
+          top:170px;
           z-index:9999;
           background: rgba(255,255,255,0.03);
           padding:8px 8px;
@@ -478,7 +478,7 @@
         .linkedin-btn {
           position:fixed;
           right:20px;
-          top:80px;
+          top:70px;
           z-index:9999;
           background: rgba(255,255,255,0.03);
           padding:8px 25px;
@@ -826,7 +826,7 @@
           }
           .music-control {
             right: 10px;
-            top: 130px;
+            top: 170px;
             padding: 8px 15px;
             font-size: 14px;
             min-width: 120px;
@@ -912,6 +912,14 @@
     <div class="form-group">
       <label class="form-label" for="contactName" id="contactNameLabel">Name</label>
       <input type="text" id="contactName" class="form-input" required>
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="contactEmail" id="contactEmailLabel">Email</label>
+      <input type="email" id="contactEmail" class="form-input" required>
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="contactMobile" id="contactMobileLabel">Mobile</label>
+      <input type="tel" id="contactMobile" class="form-input" required>
     </div>
     <div class="form-group">
       <label class="form-label" for="contactSubject" id="contactSubjectLabel">Subject</label>
@@ -1235,6 +1243,8 @@ const contactTranslations = {
     contactBtn: "Contact Me",
     modalTitle: "Contact Me",
     nameLabel: "Name",
+    emailLabel: "Email",
+    mobileLabel: "Mobile",
     subjectLabel: "Subject",
     messageLabel: "Message",
     submitBtn: "Send Message",
@@ -1246,6 +1256,8 @@ const contactTranslations = {
     contactBtn: "تواصل معي",
     modalTitle: "تواصل معي",
     nameLabel: "الاسم",
+    emailLabel: "البريد الإلكتروني",
+    mobileLabel: "رقم الهاتف",
     subjectLabel: "الموضوع",
     messageLabel: "الرسالة",
     submitBtn: "إرسال الرسالة",
@@ -1278,6 +1290,8 @@ function updateContactLanguage(lang) {
   contactText.textContent = translations.contactBtn;
   document.getElementById('contactModalTitle').textContent = translations.modalTitle;
   document.getElementById('contactNameLabel').textContent = translations.nameLabel;
+  document.getElementById('contactEmailLabel').textContent = translations.emailLabel;
+  document.getElementById('contactMobileLabel').textContent = translations.mobileLabel;
   document.getElementById('contactSubjectLabel').textContent = translations.subjectLabel;
   document.getElementById('contactMessageLabel').textContent = translations.messageLabel;
   document.getElementById('contactSubmitBtn').textContent = translations.submitBtn;
@@ -1332,8 +1346,11 @@ contactForm.addEventListener('submit', function(e) {
   // Get form data
   const formData = {
     name: document.getElementById('contactName').value,
+    email: document.getElementById('contactEmail').value,
+    mobile: document.getElementById('contactMobile').value,
     subject: document.getElementById('contactSubject').value,
-    message: document.getElementById('contactMessage').value
+    message: document.getElementById('contactMessage').value,
+    time: new Date().toLocaleString()
   };
   
   // Send email using EmailJS
