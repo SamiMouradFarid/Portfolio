@@ -132,6 +132,106 @@ body{
   width: 100%;
 }
 
+/* Trusted Companies Section */
+.companies-section {
+  width: 100%;
+  padding: 60px 20px;
+  background: linear-gradient(180deg, rgba(0,0,0,0.02), rgba(3,8,12,0.03));
+  z-index: 2;
+}
+
+.companies-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.companies-title {
+  font-size: 28px;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.companies-slider {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.companies-track {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  gap: 40px;
+}
+
+.company-logo {
+  flex: 0 0 150px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.02);
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.04);
+  padding: 20px;
+  transition: all 0.3s ease;
+}
+
+.company-logo:hover {
+  background: rgba(255,255,255,0.05);
+  transform: translateY(-5px);
+}
+
+.company-logo img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+  opacity: 0.8;
+  transition: all 0.3s ease;
+}
+
+.company-logo:hover img {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.slider-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: var(--text-dark);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.slider-arrow:hover {
+  background: linear-gradient(90deg,var(--turq-1),var(--turq-2));
+  color: #012;
+}
+
+.arrow-left {
+  left: -25px;
+}
+
+.arrow-right {
+  right: -25px;
+}
+
 /* Projects full-width section */
 .projects-section{ width:100%; padding:32px 10px 80px; background: linear-gradient(180deg, rgba(0,0,0,0.02), rgba(3,8,12,0.03)); z-index:2; }
 .projects{ max-width:1400px; margin:0 auto; display:flex; flex-direction:column; gap:28px; }
@@ -175,6 +275,20 @@ body{
   .project-card{ flex-direction:column }
   .media{ flex:0 0 auto; height:340px }
   .video-wrap video{ height:320px }
+  .companies-slider {
+    max-width: 90%;
+  }
+  .slider-arrow {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+  }
+  .arrow-left {
+    left: -20px;
+  }
+  .arrow-right {
+    right: -20px;
+  }
 }
 @media (max-width:600px){
   .name{ font-size:22px }
@@ -190,6 +304,26 @@ body{
     top: 70px;
     padding: 6px 12px;
     font-size: 14px;
+  }
+  .companies-title {
+    font-size: 22px;
+    margin-bottom: 30px;
+  }
+  .company-logo {
+    flex: 0 0 120px;
+    height: 60px;
+    padding: 15px;
+  }
+  .slider-arrow {
+    width: 35px;
+    height: 35px;
+    font-size: 14px;
+  }
+  .arrow-left {
+    left: -15px;
+  }
+  .arrow-right {
+    right: -15px;
   }
 }
 
@@ -268,6 +402,20 @@ body{
 
 <!-- Section Separator -->
 <div class="section-separator"></div>
+
+<!-- Trusted Companies Section -->
+<section class="companies-section">
+  <div class="companies-container">
+    <h2 class="companies-title">Trusted Companies</h2>
+    <div class="companies-slider">
+      <button class="slider-arrow arrow-left" onclick="slideLeft()">❮</button>
+      <div class="companies-track" id="companiesTrack">
+        <!-- Company logos will be added here by JavaScript -->
+      </div>
+      <button class="slider-arrow arrow-right" onclick="slideRight()">❯</button>
+    </div>
+  </div>
+</section>
 
 <!-- Projects section -->
 <section class="projects-section" id="projectsSection">
@@ -429,6 +577,70 @@ body{
 </div>
 
 <script>
+// Companies data - updated with your GitHub logo paths
+const companies = [
+  { name: 'Exceed', logo: 'xceed logo.png' },
+  { name: 'Raya', logo: 'Raya Logo.png' },
+  { name: 'OSN', logo: 'OSN Logo.png' },
+  { name: 'Bigo', logo: 'Bigo Logo.png' },
+  { name: 'Etisalat', logo: 'Etisalat Logo.jpg' },
+  { name: 'Mashreq Bank', logo: 'Mashreq bank logo.png' },
+  { name: 'Upsource', logo: 'UpSource Logo.png' },
+  { name: 'STC', logo: 'STC Logo.png' },
+  { name: 'Giza Systems', logo: 'Giza Systems Logo.png' }
+];
+
+let currentSlide = 0;
+const slidesToShow = 5;
+
+// Initialize companies slider
+function initCompaniesSlider() {
+  const track = document.getElementById('companiesTrack');
+  
+  companies.forEach(company => {
+    const logoDiv = document.createElement('div');
+    logoDiv.className = 'company-logo';
+    logoDiv.innerHTML = `<img src="${company.logo}" alt="${company.name}" title="${company.name}">`;
+    track.appendChild(logoDiv);
+  });
+}
+
+// Slide functions
+function slideLeft() {
+  const track = document.getElementById('companiesTrack');
+  const logos = track.querySelectorAll('.company-logo');
+  const logoWidth = logos[0].offsetWidth + 40; // width + gap
+  
+  currentSlide = Math.max(currentSlide - 1, 0);
+  track.style.transform = `translateX(-${currentSlide * logoWidth}px)`;
+}
+
+function slideRight() {
+  const track = document.getElementById('companiesTrack');
+  const logos = track.querySelectorAll('.company-logo');
+  const logoWidth = logos[0].offsetWidth + 40; // width + gap
+  
+  currentSlide = Math.min(currentSlide + 1, logos.length - slidesToShow);
+  track.style.transform = `translateX(-${currentSlide * logoWidth}px)`;
+}
+
+// Auto slide every 5 seconds
+function startAutoSlide() {
+  setInterval(() => {
+    const track = document.getElementById('companiesTrack');
+    const logos = track.querySelectorAll('.company-logo');
+    const logoWidth = logos[0].offsetWidth + 40;
+    
+    if (currentSlide >= logos.length - slidesToShow) {
+      currentSlide = 0;
+    } else {
+      currentSlide++;
+    }
+    
+    track.style.transform = `translateX(-${currentSlide * logoWidth}px)`;
+  }, 5000);
+}
+
 /* ===== Language toggle (only descriptions change) ===== */
 const btnEn = document.getElementById('btn-en');
 const btnAr = document.getElementById('btn-ar');
@@ -522,16 +734,6 @@ function closeVideo(){
   modalVideoSrc.src = '';
 }
 
-/* ===== Download Resume ===== */
-function downloadResume(){
-  const link = document.createElement('a');
-  link.href = 'Sami_Mourad_CV.pdf'; // Replace with your actual PDF file
-  link.download = 'Sami_Mourad_CV.pdf';
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-}
-
 /* ===== Modal backdrop close ===== */
 document.querySelectorAll('.modal').forEach(m=>{
   m.addEventListener('click', ev=>{
@@ -546,6 +748,12 @@ document.addEventListener('keydown', e=>{
   if(e.key === 'Escape'){
     if(videoModal.classList.contains('open')) closeVideo();
   }
+});
+
+// Initialize companies slider when page loads
+document.addEventListener('DOMContentLoaded', () => {
+  initCompaniesSlider();
+  setTimeout(startAutoSlide, 3000); // Start auto-slide after 3 seconds
 });
 </script>
 </body>
