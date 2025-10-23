@@ -54,9 +54,9 @@
           top:140px;
           z-index:9999;
           background: rgba(255,255,255,0.03);
-          padding:8px 25px;
+          padding:8px 8px;
           border-radius:10px;
-          border:1px solid rgba(255,255,255,0.04);
+          border:2px solid rgba(255,255,255,0.04);
           box-shadow: 0 8px 30px rgba(0,0,0,0.6);
           transition: all 0.3s ease;
           cursor: pointer;
@@ -110,21 +110,41 @@
           line-height: 1.5;
         }
 
+        .music-prompt-buttons {
+          display: flex;
+          gap: 12px;
+          justify-content: center;
+          flex-wrap: wrap;
+        }
+
         .music-prompt-btn {
           background: linear-gradient(90deg,var(--turq-1),var(--turq-2));
           color: #012;
           border: none;
-          padding: 12px 30px;
+          padding: 12px 20px;
           border-radius: 10px;
           font-weight: 800;
           cursor: pointer;
-          font-size: 16px;
+          font-size: 14px;
           transition: all 0.3s ease;
+          flex: 1;
+          min-width: 120px;
+        }
+
+        .music-prompt-btn.secondary {
+          background: rgba(255,255,255,0.1);
+          color: var(--text-dark);
+          border: 1px solid rgba(255,255,255,0.2);
         }
 
         .music-prompt-btn:hover {
           transform: translateY(-2px);
           box-shadow: 0 10px 25px rgba(6,168,154,0.3);
+        }
+
+        .music-prompt-btn.secondary:hover {
+          background: rgba(255,255,255,0.15);
+          box-shadow: 0 10px 25px rgba(255,255,255,0.1);
         }
 
         /* top language switch */
@@ -498,6 +518,12 @@
           .arrow-right {
             right: -15px;
           }
+          .music-prompt-buttons {
+            flex-direction: column;
+          }
+          .music-prompt-btn {
+            min-width: 100%;
+          }
         }
 
         /* small helper */
@@ -516,7 +542,7 @@
 
 <!-- background audio -->
 <audio id="bgMusic" loop>
-  <source src="https://assets.codepen.io/1468070/ambient-music.mp3" type="audio/mpeg">
+  <source src="BackGround Music.mp3" type="audio/mpeg">
   Your browser does not support the audio element.
 </audio>
 
@@ -524,7 +550,10 @@
 <div id="musicPrompt" class="music-prompt">
   <h3>🎵 Background Music</h3>
   <p>Would you like to enable background music for a better experience?</p>
-  <button class="music-prompt-btn" onclick="enableMusic()">Enable Music</button>
+  <div class="music-prompt-buttons">
+    <button class="music-prompt-btn" onclick="enableMusic()">Enable Music</button>
+    <button class="music-prompt-btn secondary" onclick="disableMusic()">Don't Play Music</button>
+  </div>
 </div>
 
 <!-- language switch -->
@@ -568,7 +597,7 @@
 
       <div class="col right">
         <div class="name">Sami Mourad Farid</div>
-        <div class="role">Business Intelligence Analyst — Data Analyst · 6 Sigma · MIS</div>
+        <div class="role">Business Intelligence Analyst — Power BI · SQL · Python</div>
 
         <div class="exp-badge">⭐ 4+ Years of Experience</div>
 
@@ -585,10 +614,10 @@
           <div class="skill">Power Query</div>
           <div class="skill">Dax</div>
           <div class="skill">M Language</div>
-          <div class="skill">Power BI</div>
           <div class="skill">ETL</div>
           <div class="skill">Automation</div>
-          <div class="skill">Power Automate</div>
+          <div class="skill">Power BI</div>
+          <div class="skill">Power Point</div>
           <div class="skill">Data Visualization</div>
         </div>
 
@@ -801,7 +830,7 @@ const musicText = document.getElementById('musicText');
 const musicPrompt = document.getElementById('musicPrompt');
 let musicPlaying = false;
 
-// Enable music when user clicks the prompt
+// Enable music when user clicks "Enable Music"
 function enableMusic() {
   musicPrompt.style.display = 'none';
   musicControl.style.display = 'block';
@@ -815,6 +844,13 @@ function enableMusic() {
     musicText.textContent = 'Play Music';
     musicPlaying = false;
   });
+}
+
+// Disable music when user clicks "Don't Play Music"
+function disableMusic() {
+  musicPrompt.style.display = 'none';
+  musicControl.style.display = 'none';
+  // Don't start the music, just close the prompt
 }
 
 function toggleMusic(e) {
