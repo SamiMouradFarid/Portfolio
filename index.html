@@ -30,6 +30,43 @@
           direction:ltr;
         }
 
+        /* Loading screen */
+        .loading-screen {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: var(--bg-dark);
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          z-index: 10000;
+          transition: opacity 0.5s ease;
+        }
+
+        .loading-spinner {
+          width: 50px;
+          height: 50px;
+          border: 4px solid rgba(255,255,255,0.1);
+          border-left: 4px solid var(--turq-1);
+          border-radius: 50%;
+          animation: spin 1s linear infinite;
+          margin-bottom: 20px;
+        }
+
+        .loading-text {
+          color: var(--text-dark);
+          font-size: 18px;
+          font-weight: 600;
+        }
+
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+
         /* Full-screen background video - FIXED POSITIONING */
         .bg-video{
           position:fixed;
@@ -54,7 +91,7 @@
           top:140px;
           z-index:9999;
           background: rgba(255,255,255,0.03);
-          padding:8px 25px;
+          padding:8px 8px;
           border-radius:10px;
           border:2px solid rgba(255,255,255,0.04);
           box-shadow: 0 8px 30px rgba(0,0,0,0.6);
@@ -100,6 +137,53 @@
           box-shadow: 0 20px 60px rgba(0,0,0,0.8);
           max-width: 400px;
           width: 90%;
+        }
+
+        .music-prompt-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 15px;
+        }
+
+        .music-prompt-lang {
+          display: flex;
+          gap: 6px;
+        }
+
+        .music-prompt-lang button {
+          background: transparent;
+          border: none;
+          color: var(--text-dark);
+          padding: 6px 10px;
+          font-weight: 700;
+          cursor: pointer;
+          border-radius: 6px;
+          font-size: 12px;
+        }
+
+        .music-prompt-lang button.active {
+          background: linear-gradient(90deg,var(--turq-1),var(--turq-2));
+          color: #012;
+        }
+
+        .music-prompt-close {
+          background: transparent;
+          border: none;
+          color: var(--text-dark);
+          font-size: 20px;
+          cursor: pointer;
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: all 0.3s ease;
+        }
+
+        .music-prompt-close:hover {
+          background: rgba(255,255,255,0.1);
         }
 
         .music-prompt h3 {
@@ -537,6 +621,12 @@
 </head>
 <body>
 
+<!-- Loading Screen -->
+<div class="loading-screen" id="loadingScreen">
+  <div class="loading-spinner"></div>
+  <div class="loading-text">Loading Experience...</div>
+</div>
+
 <!-- background video (full screen) -->
 <video id="bgVideo" class="bg-video" autoplay muted loop playsinline>
   <!-- Replace with your actual background video -->
@@ -552,12 +642,19 @@
 </audio>
 
 <!-- Music Auto-play Prompt -->
-<div id="musicPrompt" class="music-prompt">
-  <h3>🎵 Background Music</h3>
-  <p>Would you like to enable background music for a better experience?</p>
+<div id="musicPrompt" class="music-prompt" style="display: none;">
+  <div class="music-prompt-header">
+    <div class="music-prompt-lang">
+      <button id="musicPromptEn" class="active">English</button>
+      <button id="musicPromptAr">العربية</button>
+    </div>
+    <button class="music-prompt-close" onclick="closePromptAndPlayMusic()">✕</button>
+  </div>
+  <h3 id="musicPromptTitle">🎵 Background Music</h3>
+  <p id="musicPromptText">Would you like to enable background music for a better experience?</p>
   <div class="music-prompt-buttons">
-    <button class="music-prompt-btn" onclick="enableMusic()">Play Music</button>
-    <button class="music-prompt-btn secondary" onclick="disableMusic()">Don't Play Music</button>
+    <button class="music-prompt-btn" onclick="enableMusic()" id="musicPromptPlayBtn">Play Music</button>
+    <button class="music-prompt-btn secondary" onclick="disableMusic()" id="musicPromptDontPlayBtn">Don't Play Music</button>
   </div>
 </div>
 
@@ -602,7 +699,7 @@
 
       <div class="col right">
         <div class="name">Sami Mourad Farid</div>
-        <div class="role">Business Intelligence Analyst — Data Analyst · 6 Sigma (Green belt) · MIS</div>
+        <div class="role">Business Intelligence Analyst — Data Analyst · Six Sigma · MIS</div>
 
         <div class="exp-badge">⭐ 4+ Years of Experience</div>
 
@@ -833,7 +930,46 @@ const bgMusic = document.getElementById('bgMusic');
 const musicControl = document.getElementById('musicControl');
 const musicText = document.getElementById('musicText');
 const musicPrompt = document.getElementById('musicPrompt');
+const loadingScreen = document.getElementById('loadingScreen');
 let musicPlaying = false;
+let musicPromptLanguage = 'en';
+
+// Music prompt translations
+const musicPromptTranslations = {
+  en: {
+    title: "🎵 Background Music",
+    text: "Would you like to enable background music for a better experience?",
+    playBtn: "Play Music",
+    dontPlayBtn: "Don't Play Music"
+  },
+  ar: {
+    title: "🎵 موسيقى خلفية",
+    text: "هل ترغب في تشغيل الموسيقى الخلفية لتجربة أفضل؟",
+    playBtn: "تشغيل الموسيقى",
+    dontPlayBtn: "لا تشغل الموسيقى"
+  }
+};
+
+// Update music prompt language
+function updateMusicPromptLanguage(lang) {
+  musicPromptLanguage = lang;
+  const translations = musicPromptTranslations[lang];
+  
+  document.getElementById('musicPromptTitle').textContent = translations.title;
+  document.getElementById('musicPromptText').textContent = translations.text;
+  document.getElementById('musicPromptPlayBtn').textContent = translations.playBtn;
+  document.getElementById('musicPromptDontPlayBtn').textContent = translations.dontPlayBtn;
+  
+  // Update active language button
+  document.getElementById('musicPromptEn').classList.toggle('active', lang === 'en');
+  document.getElementById('musicPromptAr').classList.toggle('active', lang === 'ar');
+}
+
+// Close prompt and play music (for X button)
+function closePromptAndPlayMusic() {
+  musicPrompt.style.display = 'none';
+  enableMusic();
+}
 
 // Enable music when user clicks "Play Music"
 function enableMusic() {
@@ -841,11 +977,11 @@ function enableMusic() {
   
   bgMusic.play().then(() => {
     musicPlaying = true;
-    musicText.textContent = 'Pause Music';
+    musicText.textContent = musicPromptLanguage === 'en' ? 'Pause Music' : 'إيقاف الموسيقى';
     console.log('Music started successfully');
   }).catch(error => {
     console.log('Music play failed:', error);
-    musicText.textContent = 'Play Music';
+    musicText.textContent = musicPromptLanguage === 'en' ? 'Play Music' : 'تشغيل الموسيقى';
     musicPlaying = false;
   });
 }
@@ -854,7 +990,7 @@ function enableMusic() {
 function disableMusic() {
   musicPrompt.style.display = 'none';
   // Keep the music control button visible but don't start music
-  musicText.textContent = 'Play Music';
+  musicText.textContent = musicPromptLanguage === 'en' ? 'Play Music' : 'تشغيل الموسيقى';
   musicPlaying = false;
 }
 
@@ -863,16 +999,72 @@ function toggleMusic(e) {
   
   if (musicPlaying) {
     bgMusic.pause();
-    musicText.textContent = 'Play Music';
+    musicText.textContent = musicPromptLanguage === 'en' ? 'Play Music' : 'تشغيل الموسيقى';
     musicPlaying = false;
   } else {
     bgMusic.play().catch(err => {
       console.log('Audio play failed:', err);
     });
-    musicText.textContent = 'Pause Music';
+    musicText.textContent = musicPromptLanguage === 'en' ? 'Pause Music' : 'إيقاف الموسيقى';
     musicPlaying = true;
   }
 }
+
+// Wait for video and audio to load before showing content
+window.addEventListener('load', function() {
+  const bgVideo = document.getElementById('bgVideo');
+  const bgAudio = document.getElementById('bgMusic');
+  
+  // Check if video and audio are loaded
+  let videoLoaded = bgVideo.readyState >= 3; // HAVE_FUTURE_DATA
+  let audioLoaded = bgAudio.readyState >= 3;
+  
+  function checkResourcesLoaded() {
+    if (videoLoaded && audioLoaded) {
+      // Hide loading screen and show music prompt after a short delay
+      setTimeout(() => {
+        loadingScreen.style.opacity = '0';
+        setTimeout(() => {
+          loadingScreen.style.display = 'none';
+          musicPrompt.style.display = 'block';
+        }, 500);
+      }, 1000);
+    }
+  }
+  
+  // If video is already loaded
+  if (videoLoaded) {
+    console.log('Video loaded');
+  } else {
+    bgVideo.addEventListener('canplaythrough', function() {
+      videoLoaded = true;
+      console.log('Video can play through');
+      checkResourcesLoaded();
+    });
+  }
+  
+  // If audio is already loaded
+  if (audioLoaded) {
+    console.log('Audio loaded');
+  } else {
+    bgAudio.addEventListener('canplaythrough', function() {
+      audioLoaded = true;
+      console.log('Audio can play through');
+      checkResourcesLoaded();
+    });
+  }
+  
+  // Fallback: if resources take too long, show content anyway
+  setTimeout(() => {
+    if (loadingScreen.style.display !== 'none') {
+      loadingScreen.style.opacity = '0';
+      setTimeout(() => {
+        loadingScreen.style.display = 'none';
+        musicPrompt.style.display = 'block';
+      }, 500);
+    }
+  }, 5000); // Show after 5 seconds max
+});
 
 // Initialize companies slider
 function initCompaniesSlider() {
@@ -1018,6 +1210,10 @@ function setLanguage(lang){
 setLanguage('en');
 btnEn.addEventListener('click', ()=> setLanguage('en'));
 btnAr.addEventListener('click', ()=> setLanguage('ar'));
+
+// Music prompt language toggle
+document.getElementById('musicPromptEn').addEventListener('click', () => updateMusicPromptLanguage('en'));
+document.getElementById('musicPromptAr').addEventListener('click', () => updateMusicPromptLanguage('ar'));
 
 /* ===== Project Slideshows (auto + dots click) ===== */
 document.querySelectorAll('.media').forEach(media=>{
