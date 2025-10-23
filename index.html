@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Sami Mourad — Portfolio</title>
+<title>Sami Mourad Farid — Portfolio</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -127,7 +127,7 @@ body{
 
 /* Section Separator */
 .section-separator {
-  height: 60px;
+  height: 80px;
   background: linear-gradient(180deg, rgba(0,0,0,0.02), rgba(3,8,12,0.03));
   width: 100%;
 }
@@ -215,12 +215,18 @@ body{
   </a>
 </div>
 
-<!-- background video (dark) -->
-<video id="bgVideo" class="bg-video" autoplay muted loop playsinline>
-  <!-- Replace with your actual background video -->
-  <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+<!-- background video (dark) - YouTube Embed -->
+<div id="bgVideo" class="bg-video" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:1; filter: brightness(0.36) saturate(1.05) contrast(1.02);">
+  <iframe 
+    width="100%" 
+    height="100%" 
+    src="https://www.youtube.com/embed/Hgg7M3kSqyE?autoplay=1&mute=1&loop=1&playlist=Hgg7M3kSqyE&controls=0&modestbranding=1&rel=0&showinfo=0&disablekb=1" 
+    frameborder="0" 
+    allow="autoplay; encrypted-media" 
+    allowfullscreen
+    style="width:100%; height:100%; object-fit:cover;">
+  </iframe>
+</div>
 <div class="bg-overlay"></div>
 
 <!-- main content -->
@@ -258,7 +264,7 @@ body{
         </div>
 
         <div class="download-row">
-          <button class="download-btn" onclick="downloadResume()">📄 Download Resume</button>
+          <button class="download-btn">📄 <a href="https://drive.google.com/file/d/1gSomBnIsCwlU2M80Kst6OSMTR8Fcrym_/view?usp=sharing" target="_blank"> Explore & Download Resume </a></button>
         </div>
       </div>
     </div>
