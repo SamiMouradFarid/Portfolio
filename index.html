@@ -215,18 +215,12 @@ body{
   </a>
 </div>
 
-<!-- background video (dark) - YouTube Embed -->
-<div id="bgVideo" class="bg-video" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:1; filter: brightness(0.36) saturate(1.05) contrast(1.02);">
-  <iframe 
-    width="100%" 
-    height="100%" 
-    src="https://www.youtube.com/embed/Hgg7M3kSqyE?autoplay=1&mute=1&loop=1&playlist=Hgg7M3kSqyE&controls=0&modestbranding=1&rel=0&showinfo=0&disablekb=1" 
-    frameborder="0" 
-    allow="autoplay; encrypted-media" 
-    allowfullscreen
-    style="width:100%; height:100%; object-fit:cover;">
-  </iframe>
-</div>
+<!-- background video (dark) -->
+<video id="bgVideo" class="bg-video" autoplay muted loop playsinline>
+  <!-- Replace with your actual background video -->
+  <source src="Back_Ground_Video.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
 <div class="bg-overlay"></div>
 
 <!-- main content -->
