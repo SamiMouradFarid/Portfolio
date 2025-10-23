@@ -30,6 +30,57 @@
           direction:ltr;
         }
 
+        /* Full-screen background video */
+        .bg-video{
+          position:fixed;
+          inset:0;
+          width:100%;
+          height:100%;
+          object-fit:cover;
+          z-index:1;
+          filter: brightness(0.36) saturate(1.05) contrast(1.02);
+        }
+        .bg-overlay{ 
+          position:fixed; 
+          inset:0; 
+          z-index:2; 
+          background: linear-gradient(180deg, rgba(2,8,12,0.28), rgba(2,8,12,0.48)); 
+        }
+
+        /* Music control button */
+        .music-control {
+          position:fixed;
+          right:20px;
+          top:140px;
+          z-index:9999;
+          background: rgba(255,255,255,0.03);
+          padding:8px 25px;
+          border-radius:10px;
+          border:1px solid rgba(255,255,255,0.04);
+          box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+          transition: all 0.3s ease;
+          cursor: pointer;
+        }
+
+        .music-control a {
+          color: var(--text-dark);
+          text-decoration: none;
+          font-weight:700;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          transition: all 0.3s ease;
+        }
+
+        .music-control:hover {
+          background: linear-gradient(90deg,var(--turq-1),var(--turq-2));
+          box-shadow: 0 12px 30px rgba(6,168,154,0.12);
+        }
+
+        .music-control:hover a {
+          color: #012;
+        }
+
         /* top language switch */
         .lang-switch {
           position:fixed;
@@ -96,37 +147,60 @@
         .container{ position:relative; z-index:3; max-width:1400px; margin:0 auto; }
 
         /* HERO with background video */
-        .hero-wrap{ position:relative; min-height:90vh; overflow:hidden; display:flex; align-items:center; }
-        .bg-video{
-          position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:1;
-          filter: brightness(0.36) saturate(1.05) contrast(1.02);
+        .hero-wrap{ 
+          position:relative; 
+          min-height:100vh; 
+          overflow:hidden; 
+          display:flex; 
+          align-items:center; 
+          justify-content: center;
         }
-        .bg-overlay{ position:absolute; inset:0; z-index:2; background: linear-gradient(180deg, rgba(2,8,12,0.28), rgba(2,8,12,0.48)); }
 
         /* hero content 50/50 */
-        .hero{ position:relative; z-index:4; display:flex; gap:34px; align-items:stretch; width:100%; padding:36px 20px; min-height:90vh; }
+        .hero{ 
+          position:relative; 
+          z-index:4; 
+          display:flex; 
+          gap:34px; 
+          align-items:stretch; 
+          width:100%; 
+          padding:36px 20px; 
+          min-height:100vh;
+        }
         .col{ flex:0 0 50%; min-width:0; }
 
         /* left: profile area - FIXED FRAME */
-        .left{ display:flex; align-items:center; justify-content:center; padding:12px; }
+        .left{ 
+          display:flex; 
+          align-items:center; 
+          justify-content:center; 
+          padding:12px; 
+        }
         .profile-frame{ 
           width:100%; 
           max-width:520px; 
           border-radius:16px; 
-          overflow: hidden; /* Added to contain the image */
+          overflow: hidden;
           box-shadow: 0 18px 50px rgba(0,0,0,0.5); 
         }
         .profile-frame img{ 
           width:100%; 
           height:auto; 
           aspect-ratio:1/1.35;
-          object-fit: cover; /* Changed from contain to cover for better fit */
+          object-fit: cover;
           border-radius:10px; 
           display:block; 
         }
 
         /* right: info */
-        .right{ display:flex; flex-direction:column; justify-content:center; align-items:flex-start; padding:8px 24px; color:#e9fbfb; }
+        .right{ 
+          display:flex; 
+          flex-direction:column; 
+          justify-content:center; 
+          align-items:flex-start; 
+          padding:8px 24px; 
+          color:#e9fbfb; 
+        }
         .name{ font-size:34px; font-weight:800; color:#fff; }
         .role{ margin-top:8px; color:#cfeff0; font-weight:600; }
         .exp-badge{ margin-top:18px; padding:12px 22px; border-radius:12px; font-weight:800; background: linear-gradient(180deg,var(--turq-1),var(--turq-2)); color:#012; box-shadow: 0 16px 40px rgba(6,168,154,0.12); }
@@ -185,21 +259,21 @@
         }
 
         .company-logo {
-      flex: 0 0 250px;
-      height: 160px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #ffffff; /* Always white background */
-      border-radius: 16px;
-      border: 1px solid rgba(0,0,0,0.1); /* Darker border for contrast */
-      padding: 30px;
-      transition: all 0.3s ease;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.3);
-}
+          flex: 0 0 250px;
+          height: 160px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: #ffffff;
+          border-radius: 16px;
+          border: 1px solid rgba(0,0,0,0.1);
+          padding: 30px;
+          transition: all 0.3s ease;
+          box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+        }
 
         .company-logo:hover {
-          background: #ffffff; /* Slightly darker white on hover */
+          background: #ffffff;
           transform: translateY(-8px);
           box-shadow: 0 15px 40px rgba(6,168,154,0.2);
         }
@@ -252,7 +326,12 @@
         }
 
         /* Projects full-width section */
-        .projects-section{ width:100%; padding:32px 10px 80px; background: linear-gradient(180deg, rgba(0,0,0,0.02), rgba(3,8,12,0.03)); z-index:2; }
+        .projects-section{ 
+          width:100%; 
+          padding:32px 10px 80px; 
+          background: linear-gradient(180deg, rgba(0,0,0,0.02), rgba(3,8,12,0.03)); 
+          z-index:2; 
+        }
         .projects{ max-width:1400px; margin:0 auto; display:flex; flex-direction:column; gap:28px; }
 
         /* project card: image left 75% + info right 25% */
@@ -288,9 +367,19 @@
 
         /* responsive */
         @media (max-width:1100px){
-          .hero{ flex-direction:column; gap:18px; min-height:80vh; padding:28px 16px }
+          .hero{ 
+            flex-direction:column; 
+            gap:18px; 
+            min-height:100vh; 
+            padding:28px 16px;
+            justify-content: flex-start;
+            padding-top: 120px;
+          }
           .col{ flex:0 0 100% }
-          .profile-frame{ width:62% }
+          .profile-frame{ 
+            width:62%;
+            max-width: 400px;
+          }
           .project-card{ flex-direction:column }
           .media{ flex:0 0 auto; height:340px }
           .video-wrap video{ height:320px }
@@ -315,7 +404,10 @@
         }
         @media (max-width:600px){
           .name{ font-size:22px }
-          .profile-frame{ width:78% }
+          .profile-frame{ 
+            width:78%;
+            max-width: 300px;
+          }
           .media{ height:240px }
           .video-wrap video{ height:220px }
           .lang-switch {
@@ -325,6 +417,12 @@
           .linkedin-btn {
             right: 10px;
             top: 70px;
+            padding: 6px 12px;
+            font-size: 14px;
+          }
+          .music-control {
+            right: 10px;
+            top: 120px;
             padding: 6px 12px;
             font-size: 14px;
           }
@@ -356,6 +454,20 @@
 </head>
 <body>
 
+<!-- background video (full screen) -->
+<video id="bgVideo" class="bg-video" autoplay muted loop playsinline>
+  <!-- Replace with your actual background video -->
+  <source src="Back_Ground_Video.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+<div class="bg-overlay"></div>
+
+<!-- background audio -->
+<audio id="bgMusic" loop>
+  <source src="https://assets.codepen.io/1468070/ambient-music.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+
 <!-- language switch -->
 <div class="lang-switch" aria-hidden="false">
   <button id="btn-en" class="active">English</button>
@@ -372,13 +484,15 @@
   </a>
 </div>
 
-<!-- background video (dark) -->
-<video id="bgVideo" class="bg-video" autoplay muted loop playsinline>
-  <!-- Replace with your actual background video -->
-  <source src="Back_Ground_Video.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
-<div class="bg-overlay"></div>
+<!-- Music Control Button -->
+<div class="music-control" id="musicControl">
+  <a href="#" onclick="toggleMusic(event)">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+    </svg>
+    <span id="musicText">Play Music</span>
+  </a>
+</div>
 
 <!-- main content -->
 <div class="container">
@@ -583,7 +697,7 @@
 </section>
 
 <!-- footer -->
-<footer style="padding:28px 10px; text-align:center; color:#cfeff0;">
+<footer style="padding:28px 10px; text-align:center; color:#cfeff0; position:relative; z-index:3;">
   <div style="max-width:1400px; margin:0 auto;">© <strong>Sami Mourad Farid - samimouradfarid@gmail.com - +20 0111 300 11 60 </strong></div>
 </footer>
 
@@ -619,6 +733,28 @@ const companies = [
 
 let currentSlide = 0;
 let maxSlides = 0;
+
+// Background music control
+const bgMusic = document.getElementById('bgMusic');
+const musicControl = document.getElementById('musicControl');
+const musicText = document.getElementById('musicText');
+let musicPlaying = false;
+
+function toggleMusic(e) {
+  e.preventDefault();
+  
+  if (musicPlaying) {
+    bgMusic.pause();
+    musicText.textContent = 'Play Music';
+    musicPlaying = false;
+  } else {
+    bgMusic.play().catch(err => {
+      console.log('Audio play failed:', err);
+    });
+    musicText.textContent = 'Pause Music';
+    musicPlaying = true;
+  }
+}
 
 // Initialize companies slider
 function initCompaniesSlider() {
@@ -764,20 +900,6 @@ function setLanguage(lang){
 setLanguage('en');
 btnEn.addEventListener('click', ()=> setLanguage('en'));
 btnAr.addEventListener('click', ()=> setLanguage('ar'));
-
-/* ===== Background video auto pause when projects visible ===== */
-const bgVideo = document.getElementById('bgVideo');
-const projectsSection = document.getElementById('projectsSection');
-const observer = new IntersectionObserver(entries=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting){
-      bgVideo.pause();
-    } else {
-      bgVideo.play().catch(()=>{});
-    }
-  });
-},{threshold:0.15});
-if(projectsSection) observer.observe(projectsSection);
 
 /* ===== Project Slideshows (auto + dots click) ===== */
 document.querySelectorAll('.media').forEach(media=>{
