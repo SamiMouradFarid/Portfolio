@@ -30,20 +30,20 @@
           direction:ltr;
         }
 
-        /* Full-screen background video */
+        /* Full-screen background video - FIXED POSITIONING */
         .bg-video{
           position:fixed;
           inset:0;
           width:100%;
           height:100%;
           object-fit:cover;
-          z-index:1;
+          z-index:-1; /* Behind everything */
           filter: brightness(0.36) saturate(1.05) contrast(1.02);
         }
         .bg-overlay{ 
           position:fixed; 
           inset:0; 
-          z-index:2; 
+          z-index:-1; /* Behind everything */
           background: linear-gradient(180deg, rgba(2,8,12,0.28), rgba(2,8,12,0.48)); 
         }
 
@@ -221,6 +221,8 @@
           height: 60px;
           background: linear-gradient(180deg, rgba(0,0,0,0.02), rgba(3,8,12,0.03));
           width: 100%;
+          position: relative;
+          z-index: 3;
         }
 
         /* Trusted Companies Section - ENHANCED LOGOS */
@@ -228,13 +230,16 @@
           width: 100%;
           padding: 80px 20px;
           background: linear-gradient(180deg, rgba(0,0,0,0.02), rgba(3,8,12,0.03));
-          z-index: 2;
+          position: relative;
+          z-index: 3;
         }
 
         .companies-container {
           max-width: 1400px;
           margin: 0 auto;
           text-align: center;
+          position: relative;
+          z-index: 3;
         }
 
         .companies-title {
@@ -330,7 +335,8 @@
           width:100%; 
           padding:32px 10px 80px; 
           background: linear-gradient(180deg, rgba(0,0,0,0.02), rgba(3,8,12,0.03)); 
-          z-index:2; 
+          position: relative;
+          z-index: 3;
         }
         .projects{ max-width:1400px; margin:0 auto; display:flex; flex-direction:column; gap:28px; }
 
@@ -463,8 +469,8 @@
 <div class="bg-overlay"></div>
 
 <!-- background audio -->
-<audio id="bgMusic" loop>
-  <source src="BackGround Music.mp3" type="audio/mpeg">
+<audio id="bgMusic" loop autoplay>
+  <source src="https://assets.codepen.io/1468070/ambient-music.mp3" type="audio/mpeg">
   Your browser does not support the audio element.
 </audio>
 
@@ -490,7 +496,7 @@
     <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
       <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
     </svg>
-    <span id="musicText">Play Music</span>
+    <span id="musicText">Pause Music</span>
   </a>
 </div>
 
@@ -509,7 +515,7 @@
 
       <div class="col right">
         <div class="name">Sami Mourad Farid</div>
-        <div class="role">Business Intelligence Analyst — Data Analyst·6 Sigma·MIS</div>
+        <div class="role">Business Intelligence Analyst — Power BI · SQL · Python</div>
 
         <div class="exp-badge">⭐ 4+ Years of Experience</div>
 
@@ -738,7 +744,21 @@ let maxSlides = 0;
 const bgMusic = document.getElementById('bgMusic');
 const musicControl = document.getElementById('musicControl');
 const musicText = document.getElementById('musicText');
-let musicPlaying = false;
+let musicPlaying = true;
+
+// Auto-start music
+document.addEventListener('DOMContentLoaded', function() {
+  // Try to play music automatically
+  bgMusic.play().then(() => {
+    musicPlaying = true;
+    musicText.textContent = 'Pause Music';
+  }).catch(error => {
+    console.log('Auto-play was prevented:', error);
+    // Show play button if auto-play was blocked
+    musicText.textContent = 'Play Music';
+    musicPlaying = false;
+  });
+});
 
 function toggleMusic(e) {
   e.preventDefault();
