@@ -600,21 +600,21 @@
 </div>
 
 <script>
-// Companies data - using placeholder images for demo
+// Companies data - using online image URLs that will work
 const companies = [
-  { name: 'Xceed', logo: 'xceed logo.png' },
-  { name: 'Raya', logo: 'Raya Logo.png' },
-  { name: 'OSN', logo: 'OSN Logo.png' },
-  { name: 'Bigo', logo: 'Bigo Logo.png' },
-  { name: 'Etisalat by e&', logo: 'Etisalat Logo.jpg' },
-  { name: 'Mashreq Bank', logo: 'Mashreq Bank Logo.jpg' },
-  { name: 'Upsource', logo: 'UpSource Logo.png' },
-  { name: 'STC', logo: 'STC Logo.png' },
-  { name: 'Giza Systems', logo: 'Giza Systems.png' }
+  { name: 'Xceed', logo: 'https://via.placeholder.com/200x100/00c2d1/ffffff?text=Xceed' },
+  { name: 'Raya', logo: 'https://via.placeholder.com/200x100/6a5bff/ffffff?text=Raya' },
+  { name: 'OSN', logo: 'https://via.placeholder.com/200x100/7fe3ff/012?text=OSN' },
+  { name: 'Bigo', logo: 'https://via.placeholder.com/200x100/00c2d1/ffffff?text=Bigo' },
+  { name: 'Etisalat by e&', logo: 'https://via.placeholder.com/200x100/6a5bff/ffffff?text=Etisalat' },
+  { name: 'Mashreq Bank', logo: 'https://via.placeholder.com/200x100/7fe3ff/012?text=Mashreq+Bank' },
+  { name: 'Upsource', logo: 'https://via.placeholder.com/200x100/00c2d1/ffffff?text=UpSource' },
+  { name: 'STC', logo: 'https://via.placeholder.com/200x100/6a5bff/ffffff?text=STC' },
+  { name: 'Giza Systems', logo: 'https://via.placeholder.com/200x100/7fe3ff/012?text=Giza+Systems' }
 ];
 
 let currentSlide = 0;
-const slidesToShow = 5;
+let maxSlides = 0;
 
 // Initialize companies slider
 function initCompaniesSlider() {
@@ -652,9 +652,16 @@ function initCompaniesSlider() {
     logoDiv.appendChild(img);
     track.appendChild(logoDiv);
   });
+  
+  // Calculate max slides after logos are loaded
+  setTimeout(() => {
+    const logos = track.querySelectorAll('.company-logo');
+    const visibleLogos = Math.floor(track.parentElement.offsetWidth / (logos[0].offsetWidth + 50));
+    maxSlides = Math.max(0, logos.length - visibleLogos);
+  }, 100);
 }
 
-// Slide functions
+// Slide functions - FIXED
 function slideLeft() {
   const track = document.getElementById('companiesTrack');
   const logos = track.querySelectorAll('.company-logo');
@@ -664,6 +671,8 @@ function slideLeft() {
   
   currentSlide = Math.max(currentSlide - 1, 0);
   track.style.transform = `translateX(-${currentSlide * logoWidth}px)`;
+  
+  updateArrowVisibility();
 }
 
 function slideRight() {
@@ -673,8 +682,41 @@ function slideRight() {
   
   const logoWidth = logos[0].offsetWidth + 50; // width + gap
   
-  currentSlide = Math.min(currentSlide + 1, Math.max(0, logos.length - slidesToShow));
+  // Calculate max slides dynamically
+  const visibleLogos = Math.floor(track.parentElement.offsetWidth / logoWidth);
+  const maxSlides = Math.max(0, logos.length - visibleLogos);
+  
+  currentSlide = Math.min(currentSlide + 1, maxSlides);
   track.style.transform = `translateX(-${currentSlide * logoWidth}px)`;
+  
+  updateArrowVisibility();
+}
+
+// Update arrow visibility based on current position
+function updateArrowVisibility() {
+  const leftArrow = document.querySelector('.arrow-left');
+  const rightArrow = document.querySelector('.arrow-right');
+  
+  if (currentSlide === 0) {
+    leftArrow.style.opacity = '0.5';
+    leftArrow.style.cursor = 'not-allowed';
+  } else {
+    leftArrow.style.opacity = '1';
+    leftArrow.style.cursor = 'pointer';
+  }
+  
+  const track = document.getElementById('companiesTrack');
+  const logos = track.querySelectorAll('.company-logo');
+  const visibleLogos = Math.floor(track.parentElement.offsetWidth / (logos[0].offsetWidth + 50));
+  const maxSlides = Math.max(0, logos.length - visibleLogos);
+  
+  if (currentSlide >= maxSlides) {
+    rightArrow.style.opacity = '0.5';
+    rightArrow.style.cursor = 'not-allowed';
+  } else {
+    rightArrow.style.opacity = '1';
+    rightArrow.style.cursor = 'pointer';
+  }
 }
 
 // Auto slide every 5 seconds
@@ -685,14 +727,17 @@ function startAutoSlide() {
     if (logos.length === 0) return;
     
     const logoWidth = logos[0].offsetWidth + 50;
+    const visibleLogos = Math.floor(track.parentElement.offsetWidth / logoWidth);
+    const maxSlides = Math.max(0, logos.length - visibleLogos);
     
-    if (currentSlide >= Math.max(0, logos.length - slidesToShow)) {
+    if (currentSlide >= maxSlides) {
       currentSlide = 0;
     } else {
       currentSlide++;
     }
     
     track.style.transform = `translateX(-${currentSlide * logoWidth}px)`;
+    updateArrowVisibility();
   }, 5000);
 }
 
@@ -808,8 +853,14 @@ document.addEventListener('keydown', e=>{
 // Initialize companies slider when page loads
 document.addEventListener('DOMContentLoaded', () => {
   initCompaniesSlider();
-  setTimeout(startAutoSlide, 3000); // Start auto-slide after 3 seconds
+  setTimeout(() => {
+    startAutoSlide();
+    updateArrowVisibility();
+  }, 1000); // Start auto-slide after 1 second
 });
+
+// Update arrow visibility on window resize
+window.addEventListener('resize', updateArrowVisibility);
 </script>
 </body>
 </html>
