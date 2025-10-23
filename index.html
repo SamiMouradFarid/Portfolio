@@ -610,8 +610,16 @@
           font-size: 32px;
           font-weight: 800;
           color: #fff;
+          margin-bottom: 10px;
+          text-align: center;
+        }
+
+        .companies-subtitle {
+          font-size: 18px;
+          color: #cfeff0;
           margin-bottom: 50px;
           text-align: center;
+          font-weight: 600;
         }
 
         .companies-slider {
@@ -833,6 +841,10 @@
           }
           .companies-title {
             font-size: 24px;
+            margin-bottom: 10px;
+          }
+          .companies-subtitle {
+            font-size: 16px;
             margin-bottom: 40px;
           }
           .company-logo {
@@ -906,6 +918,10 @@
 <div id="contactModal" class="contact-modal">
   <div class="contact-modal-header">
     <h3 class="contact-modal-title" id="contactModalTitle">Contact Me</h3>
+    <div class="lang-switch" style="position: relative; right: 0; top: 0; background: rgba(255,255,255,0.05);">
+      <button id="contactModalEn" class="active">English</button>
+      <button id="contactModalAr">العربية</button>
+    </div>
     <button class="contact-modal-close" onclick="closeContactModal()">✕</button>
   </div>
   <form class="contact-form" id="contactForm">
@@ -1031,6 +1047,8 @@
 <section class="companies-section">
   <div class="companies-container">
     <h2 class="companies-title">Trusted Companies</h2>
+    <div class="companies-subtitle" id="companiesSubtitle" data-en="Companies I've worked with and contributed to"
+         data-ar="الشركات التي عملت معها وساهمت فيها">Companies I've worked with and contributed to</div>
     <div class="companies-slider">
       <button class="slider-arrow arrow-left" onclick="slideLeft()">❮</button>
       <div class="companies-track" id="companiesTrack">
@@ -1627,6 +1645,13 @@ function setLanguage(lang){
   } else {
     musicText.textContent = lang === 'en' ? 'Play Music' : 'تشغيل الموسيقى';
   }
+  
+  // Update music prompt language
+  updateMusicPromptLanguage(lang);
+  
+  // Update contact modal language buttons
+  document.getElementById('contactModalEn').classList.toggle('active', lang === 'en');
+  document.getElementById('contactModalAr').classList.toggle('active', lang === 'ar');
 }
 
 // default to English
@@ -1635,8 +1660,18 @@ btnEn.addEventListener('click', ()=> setLanguage('en'));
 btnAr.addEventListener('click', ()=> setLanguage('ar'));
 
 // Music prompt language toggle
-document.getElementById('musicPromptEn').addEventListener('click', () => updateMusicPromptLanguage('en'));
-document.getElementById('musicPromptAr').addEventListener('click', () => updateMusicPromptLanguage('ar'));
+document.getElementById('musicPromptEn').addEventListener('click', () => {
+  setLanguage('en');
+  updateMusicPromptLanguage('en');
+});
+document.getElementById('musicPromptAr').addEventListener('click', () => {
+  setLanguage('ar');
+  updateMusicPromptLanguage('ar');
+});
+
+// Contact modal language toggle
+document.getElementById('contactModalEn').addEventListener('click', () => setLanguage('en'));
+document.getElementById('contactModalAr').addEventListener('click', () => setLanguage('ar'));
 
 /* ===== Project Slideshows (auto + dots click) ===== */
 document.querySelectorAll('.media').forEach(media=>{
