@@ -1201,10 +1201,11 @@
 </div>
 
 <script>
-// Initialize EmailJS
-(function() {
+// Initialize EmailJS with proper error handling
+document.addEventListener('DOMContentLoaded', function() {
   emailjs.init("fZM94KjzGpP7pJJmE");
-})();
+  console.log("EmailJS initialized");
+});
 
 // Companies data - using online image URLs that will work
 const companies = [
@@ -1332,7 +1333,7 @@ function closeSuccessMessage() {
   successMessage.classList.remove('open');
 }
 
-// Handle contact form submission
+// Handle contact form submission - FIXED VERSION
 contactForm.addEventListener('submit', function(e) {
   e.preventDefault();
   
@@ -1353,7 +1354,9 @@ contactForm.addEventListener('submit', function(e) {
     time: new Date().toLocaleString()
   };
   
-  // Send email using EmailJS
+  console.log('Sending form data:', formData);
+  
+  // Send email using EmailJS with better error handling
   emailjs.send('service_nwqbdqp', 'template_dmv1qle', formData)
     .then(function(response) {
       console.log('SUCCESS!', response.status, response.text);
@@ -1367,7 +1370,7 @@ contactForm.addEventListener('submit', function(e) {
       submitBtn.textContent = originalText;
     }, function(error) {
       console.log('FAILED...', error);
-      alert('Failed to send message. Please try again later.');
+      alert('Failed to send message. Please check console for details and try again later.');
       
       // Reset button
       submitBtn.disabled = false;
