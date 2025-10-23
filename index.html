@@ -47,19 +47,21 @@
           background: linear-gradient(180deg, rgba(2,8,12,0.28), rgba(2,8,12,0.48)); 
         }
 
-        /* Music control button */
+        /* Music control button - FIXED SIZE */
         .music-control {
           position:fixed;
           right:20px;
           top:140px;
           z-index:9999;
           background: rgba(255,255,255,0.03);
-          padding:8px 8px;
+          padding:8px 25px;
           border-radius:10px;
           border:2px solid rgba(255,255,255,0.04);
           box-shadow: 0 8px 30px rgba(0,0,0,0.6);
           transition: all 0.3s ease;
           cursor: pointer;
+          min-width: 140px; /* Fixed width to prevent size changes */
+          text-align: center;
         }
 
         .music-control a {
@@ -68,8 +70,10 @@
           font-weight:700;
           display: flex;
           align-items: center;
+          justify-content: center;
           gap: 8px;
           transition: all 0.3s ease;
+          width: 100%;
         }
 
         .music-control:hover {
@@ -495,8 +499,9 @@
           .music-control {
             right: 10px;
             top: 120px;
-            padding: 6px 12px;
+            padding: 8px 15px;
             font-size: 14px;
+            min-width: 120px;
           }
           .companies-title {
             font-size: 24px;
@@ -551,7 +556,7 @@
   <h3>🎵 Background Music</h3>
   <p>Would you like to enable background music for a better experience?</p>
   <div class="music-prompt-buttons">
-    <button class="music-prompt-btn" onclick="enableMusic()">Enable Music</button>
+    <button class="music-prompt-btn" onclick="enableMusic()">Play Music</button>
     <button class="music-prompt-btn secondary" onclick="disableMusic()">Don't Play Music</button>
   </div>
 </div>
@@ -572,13 +577,13 @@
   </a>
 </div>
 
-<!-- Music Control Button -->
-<div class="music-control" id="musicControl" style="display: none;">
+<!-- Music Control Button - ALWAYS VISIBLE -->
+<div class="music-control" id="musicControl">
   <a href="#" onclick="toggleMusic(event)">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
       <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
     </svg>
-    <span id="musicText">Pause Music</span>
+    <span id="musicText">Play Music</span>
   </a>
 </div>
 
@@ -597,7 +602,7 @@
 
       <div class="col right">
         <div class="name">Sami Mourad Farid</div>
-        <div class="role">Business Intelligence Analyst — Power BI · SQL · Python</div>
+        <div class="role">Business Intelligence Analyst — Data Analyst · 6 Sigma (Green belt) · MIS</div>
 
         <div class="exp-badge">⭐ 4+ Years of Experience</div>
 
@@ -830,10 +835,9 @@ const musicText = document.getElementById('musicText');
 const musicPrompt = document.getElementById('musicPrompt');
 let musicPlaying = false;
 
-// Enable music when user clicks "Enable Music"
+// Enable music when user clicks "Play Music"
 function enableMusic() {
   musicPrompt.style.display = 'none';
-  musicControl.style.display = 'block';
   
   bgMusic.play().then(() => {
     musicPlaying = true;
@@ -849,8 +853,9 @@ function enableMusic() {
 // Disable music when user clicks "Don't Play Music"
 function disableMusic() {
   musicPrompt.style.display = 'none';
-  musicControl.style.display = 'none';
-  // Don't start the music, just close the prompt
+  // Keep the music control button visible but don't start music
+  musicText.textContent = 'Play Music';
+  musicPlaying = false;
 }
 
 function toggleMusic(e) {
