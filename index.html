@@ -81,6 +81,52 @@
           color: #012;
         }
 
+        /* Music auto-play prompt */
+        .music-prompt {
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          background: rgba(2, 16, 25, 0.95);
+          padding: 30px;
+          border-radius: 16px;
+          text-align: center;
+          z-index: 10000;
+          border: 2px solid var(--turq-1);
+          box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+          max-width: 400px;
+          width: 90%;
+        }
+
+        .music-prompt h3 {
+          color: var(--turq-3);
+          margin-bottom: 15px;
+          font-size: 20px;
+        }
+
+        .music-prompt p {
+          color: #cfeff0;
+          margin-bottom: 20px;
+          line-height: 1.5;
+        }
+
+        .music-prompt-btn {
+          background: linear-gradient(90deg,var(--turq-1),var(--turq-2));
+          color: #012;
+          border: none;
+          padding: 12px 30px;
+          border-radius: 10px;
+          font-weight: 800;
+          cursor: pointer;
+          font-size: 16px;
+          transition: all 0.3s ease;
+        }
+
+        .music-prompt-btn:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 10px 25px rgba(6,168,154,0.3);
+        }
+
         /* top language switch */
         .lang-switch {
           position:fixed;
@@ -469,10 +515,17 @@
 <div class="bg-overlay"></div>
 
 <!-- background audio -->
-<audio id="bgMusic" loop autoplay>
-  <source src="BackGround Music.mp3" type="audio/mpeg">
+<audio id="bgMusic" loop>
+  <source src="https://assets.codepen.io/1468070/ambient-music.mp3" type="audio/mpeg">
   Your browser does not support the audio element.
 </audio>
+
+<!-- Music Auto-play Prompt -->
+<div id="musicPrompt" class="music-prompt">
+  <h3>🎵 Background Music</h3>
+  <p>Would you like to enable background music for a better experience?</p>
+  <button class="music-prompt-btn" onclick="enableMusic()">Enable Music</button>
+</div>
 
 <!-- language switch -->
 <div class="lang-switch" aria-hidden="false">
@@ -491,7 +544,7 @@
 </div>
 
 <!-- Music Control Button -->
-<div class="music-control" id="musicControl">
+<div class="music-control" id="musicControl" style="display: none;">
   <a href="#" onclick="toggleMusic(event)">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
       <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
@@ -515,7 +568,7 @@
 
       <div class="col right">
         <div class="name">Sami Mourad Farid</div>
-        <div class="role">Business Intelligence Analyst — Power BI · SQL · Python</div>
+        <div class="role">Business Intelligence Analyst — Data Analyst · 6 Sigma · MIS</div>
 
         <div class="exp-badge">⭐ 4+ Years of Experience</div>
 
@@ -535,7 +588,7 @@
           <div class="skill">Power BI</div>
           <div class="skill">ETL</div>
           <div class="skill">Automation</div>
-          <div class="skill">PowerPoint</div>
+          <div class="skill">Power Automate</div>
           <div class="skill">Data Visualization</div>
         </div>
 
@@ -745,21 +798,24 @@ let maxSlides = 0;
 const bgMusic = document.getElementById('bgMusic');
 const musicControl = document.getElementById('musicControl');
 const musicText = document.getElementById('musicText');
-let musicPlaying = true;
+const musicPrompt = document.getElementById('musicPrompt');
+let musicPlaying = false;
 
-// Auto-start music
-document.addEventListener('DOMContentLoaded', function() {
-  // Try to play music automatically
+// Enable music when user clicks the prompt
+function enableMusic() {
+  musicPrompt.style.display = 'none';
+  musicControl.style.display = 'block';
+  
   bgMusic.play().then(() => {
     musicPlaying = true;
     musicText.textContent = 'Pause Music';
+    console.log('Music started successfully');
   }).catch(error => {
-    console.log('Auto-play was prevented:', error);
-    // Show play button if auto-play was blocked
+    console.log('Music play failed:', error);
     musicText.textContent = 'Play Music';
     musicPlaying = false;
   });
-});
+}
 
 function toggleMusic(e) {
   e.preventDefault();
