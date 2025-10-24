@@ -58,14 +58,14 @@
         .loading-chart {
           width: 200px;
           height: 120px;
-          margin-bottom: 30px;
+          margin-bottom: 15px; /* Reduced margin */
           position: relative;
         }
 
         .chart-bar {
           position: absolute;
           bottom: 0;
-          width: 30px; /* Increased from 20px to 30px */
+          width: 30px;
           background: linear-gradient(to top, var(--turq-1), var(--turq-2));
           border-radius: 4px 4px 0 0;
           animation: chartGrow 1.5s infinite ease-in-out;
@@ -84,12 +84,12 @@
         }
 
         .trend-line-container {
-          width: 200px; /* Same width as loading bars */
+          width: 200px;
           height: 2px;
           background: rgba(255,255,255,0.2);
           border-radius: 1px;
           overflow: hidden;
-          margin: 0 auto 1rem;
+          margin: 0 auto 0.5rem; /* Reduced margin */
         }
 
         .trend-line {
@@ -550,7 +550,7 @@
           color:#e9fbfb; 
         }
         .name{ 
-            font-size:32px; /* Increased from 28px to 32px */
+            font-size:38px; /* Increased from 32px to 38px */
             font-weight:800; 
             color:#fff; 
             transition: all 0.3s ease;
@@ -1229,7 +1229,7 @@
           }
         }
         @media (max-width:600px){
-          .name{ font-size:26px } /* Adjusted for mobile */
+          .name{ font-size:30px } /* Adjusted for mobile */
           .profile-frame{ 
             width:78%;
             max-width: 300px;
@@ -2099,7 +2099,7 @@ window.addEventListener('load', function() {
           loadingScreen.style.display = 'none';
           // Initialize typewriter effect
           initTypewriter();
-          // Auto-play music after loading - NO PROMPT
+          // Auto-play music after loading
           enableMusic();
         }, 500);
       }, 1000);
@@ -2136,7 +2136,7 @@ window.addEventListener('load', function() {
         loadingScreen.style.display = 'none';
         // Initialize typewriter effect
         initTypewriter();
-        // Auto-play music after loading - NO PROMPT
+        // Auto-play music after loading
         enableMusic();
       }, 500);
     }
