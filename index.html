@@ -194,6 +194,7 @@
           box-shadow: 0 20px 60px rgba(0,0,0,0.8);
           max-width: 400px;
           width: 90%;
+          display: none; /* Hidden by default */
         }
 
         .music-prompt-header {
@@ -1326,21 +1327,7 @@
   </div>
 </div>
 
-<!-- background video (full screen) -->
-<video id="bgVideo" class="bg-video" autoplay muted loop playsinline>
-  <!-- Replace with your actual background video -->
-  <source src="Back_Ground_Video.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
-<div class="bg-overlay"></div>
-
-<!-- background audio -->
-<audio id="bgMusic" loop>
-  <source src="BackGround Music.mp3" type="audio/mpeg">
-  Your browser does not support the audio element.
-</audio>
-
-<!-- Music Auto-play Prompt -->
+<!-- Music Auto-play Prompt - MOVED HERE -->
 <div id="musicPrompt" class="music-prompt">
   <div class="music-prompt-header">
     <div class="music-prompt-lang">
@@ -1356,6 +1343,20 @@
     <button class="music-prompt-btn secondary" onclick="disableMusic()" id="musicPromptDontPlayBtn">Pause Music</button>
   </div>
 </div>
+
+<!-- background video (full screen) -->
+<video id="bgVideo" class="bg-video" autoplay muted loop playsinline>
+  <!-- Replace with your actual background video -->
+  <source src="Back_Ground_Video.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+<div class="bg-overlay"></div>
+
+<!-- background audio -->
+<audio id="bgMusic" loop>
+  <source src="BackGround Music.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
 
 <!-- Contact Modal -->
 <div id="contactModal" class="contact-modal">
@@ -2098,6 +2099,11 @@ window.addEventListener('load', function() {
           loadingScreen.style.display = 'none';
           // Initialize typewriter effect
           initTypewriter();
+          
+          // SHOW MUSIC PROMPT ONLY AFTER LOADING SCREEN DISAPPEARS
+          if (!hasMusicPromptBeenShown()) {
+            musicPrompt.style.display = 'block';
+          }
         }, 500);
       }, 1000);
     }
@@ -2133,6 +2139,11 @@ window.addEventListener('load', function() {
         loadingScreen.style.display = 'none';
         // Initialize typewriter effect
         initTypewriter();
+        
+        // SHOW MUSIC PROMPT ONLY AFTER LOADING SCREEN DISAPPEARS (FALLBACK)
+        if (!hasMusicPromptBeenShown()) {
+          musicPrompt.style.display = 'block';
+        }
       }, 500);
     }
   }, 5000); // Show after 5 seconds max
