@@ -84,7 +84,7 @@
         }
 
         .trend-line-container {
-          width: 300px;
+          width: 200px; /* Same width as loading bars */
           height: 2px;
           background: rgba(255,255,255,0.2);
           border-radius: 1px;
@@ -153,6 +153,7 @@
           align-items: center;
           justify-content: center;
           gap: 8px;
+          min-height: 44px; /* Ensure same height for all buttons */
         }
 
         .sidebar-btn a {
@@ -550,45 +551,48 @@
             font-size:28px; /* Reduced size to prevent overlap */
             font-weight:800; 
             color:#fff; 
+            transition: all 0.3s ease;
+            position: relative;
+            display: inline-block;
         }
+        
+        .name:hover {
+            transform: scale(1.05);
+            text-shadow: 0 0 10px rgba(127, 227, 255, 0.7),
+                         0 0 20px rgba(127, 227, 255, 0.5),
+                         0 0 30px rgba(127, 227, 255, 0.3);
+        }
+
         .role{ 
             margin-top:8px; 
             color:#cfeff0; 
             font-weight:600; 
             min-height: 60px; /* Ensure space for typewriter */
             overflow: hidden;
-            border-right: 2px solid var(--turq-1);
-            white-space: nowrap;
-            animation: blink-caret 0.75s step-end infinite;
+            /* Removed border-right and blink-caret animation */
         }
 
-        @keyframes blink-caret {
-            from, to { border-color: transparent; }
-            50% { border-color: var(--turq-1); }
-        }
-
-        /* 3D Animation for Experience Badge */
+        /* 3D Animation for Experience Badge - Changed to float only */
         .exp-badge{ 
-            margin-top:18px; 
+            margin-top:8px; /* Reduced margin to decrease space */
             padding:12px 22px; 
             border-radius:12px; 
             font-weight:800; 
             background: linear-gradient(180deg,var(--turq-1),var(--turq-2)); 
             color:#012; 
             box-shadow: 0 16px 40px rgba(6,168,154,0.12);
-            transform-style: preserve-3d;
-            animation: rotate3d 6s infinite linear;
+            animation: float 3s ease-in-out infinite;
         }
 
-        @keyframes rotate3d {
-            0% { transform: perspective(1000px) rotateY(0deg) rotateX(5deg); }
-            50% { transform: perspective(1000px) rotateY(180deg) rotateX(5deg); }
-            100% { transform: perspective(1000px) rotateY(360deg) rotateX(5deg); }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+            100% { transform: translateY(0px); }
         }
 
         .desc { margin-top:18px; color:#dff7f6; line-height:1.7; font-size:15px; max-width:720px; }
 
-        /* skills with 3D animations */
+        /* skills with floating animations only */
         .skills-row{ margin-top:22px; display:flex; gap:10px; flex-wrap:wrap; }
         .skill{ 
             display:inline-flex; 
@@ -600,16 +604,8 @@
             color:#012; 
             font-weight:800; 
             box-shadow: 0 12px 30px rgba(6,168,154,0.12);
-            transform-style: preserve-3d;
             transition: all 0.3s ease;
-            animation: float3d 4s infinite ease-in-out;
-        }
-
-        @keyframes float3d {
-            0% { transform: translateZ(0) rotateY(0deg); }
-            33% { transform: translateZ(10px) rotateY(120deg); }
-            66% { transform: translateZ(5px) rotateY(240deg); }
-            100% { transform: translateZ(0) rotateY(360deg); }
+            animation: float 3s infinite ease-in-out;
         }
 
         .skill:nth-child(2) { animation-delay: 0.2s; }
@@ -632,8 +628,18 @@
             border:none; 
             font-weight:800; 
             cursor:pointer; 
-            box-shadow:0 14px 36px rgba(6,168,154,0.14); 
+            box-shadow:0 14px 36px rgba(6,168,154,0.14);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
+        
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(6,168,154,0.3),
+                        0 0 15px rgba(127, 227, 255, 0.5);
+        }
+        
         .download-btn a {
           color: #012;
           text-decoration: none;
@@ -828,6 +834,39 @@
         .fullscreen-btn:hover {
           background: rgba(0,0,0,0.8);
           transform: scale(1.1);
+        }
+
+        /* Fullscreen modal arrows */
+        .fullscreen-arrow {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          background: rgba(0,0,0,0.6);
+          border: none;
+          color: white;
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          font-size: 24px;
+          z-index: 10;
+          transition: all 0.3s ease;
+        }
+        
+        .fullscreen-arrow:hover {
+          background: rgba(0,0,0,0.8);
+          transform: translateY(-50%) scale(1.1);
+        }
+        
+        .fullscreen-prev {
+          left: 20px;
+        }
+        
+        .fullscreen-next {
+          right: 20px;
         }
 
         /* info (right) */
@@ -1375,6 +1414,8 @@
 <!-- Full Screen Image Modal -->
 <div id="fullscreenModal" class="fullscreen-modal">
   <button class="fullscreen-modal-close" onclick="closeFullscreenModal()">✕</button>
+  <button class="fullscreen-arrow fullscreen-prev" onclick="prevFullscreenImage()">❮</button>
+  <button class="fullscreen-arrow fullscreen-next" onclick="nextFullscreenImage()">❯</button>
   <div class="fullscreen-modal-content">
     <img id="fullscreenModalImage" class="fullscreen-modal-image" src="" alt="Full Screen Image">
   </div>
@@ -1495,7 +1536,7 @@
       <div class="media">
         <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1600&q=80" alt="proj1" data-slides='["https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1600&q=80","https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1600&q=80","https://images.unsplash.com/photo-1543286386-713bdd548da4?w=1600&q=80"]'>
         <div class="dots"></div>
-        <button class="fullscreen-btn" onclick="openFullscreenModal('https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1600&q=80')">⛶</button>
+        <button class="fullscreen-btn" onclick="openFullscreenModal('https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1600&q=80', this)">⛶</button>
       </div>
       <div class="pinfo">
         <div class="pnum">PROJECT 01</div>
@@ -1523,7 +1564,7 @@
       <div class="media">
         <img src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=1600&q=80" alt="proj2" data-slides='["https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=1600&q=80","https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1600&q=80"]'>
         <div class="dots"></div>
-        <button class="fullscreen-btn" onclick="openFullscreenModal('https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=1600&q=80')">⛶</button>
+        <button class="fullscreen-btn" onclick="openFullscreenModal('https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=1600&q=80', this)">⛶</button>
       </div>
       <div class="pinfo">
         <div class="pnum">PROJECT 02</div>
@@ -1550,7 +1591,7 @@
       <div class="media">
         <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1600&q=80" alt="proj3" data-slides='["https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1600&q=80","https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?w=1600&q=80"]'>
         <div class="dots"></div>
-        <button class="fullscreen-btn" onclick="openFullscreenModal('https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1600&q=80')">⛶</button>
+        <button class="fullscreen-btn" onclick="openFullscreenModal('https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1600&q=80', this)">⛶</button>
       </div>
       <div class="pinfo">
         <div class="pnum">PROJECT 03</div>
@@ -1577,7 +1618,7 @@
       <div class="media">
         <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1600&q=80" alt="proj4" data-slides='["https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1600&q=80","https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1600&q=80"]'>
         <div class="dots"></div>
-        <button class="fullscreen-btn" onclick="openFullscreenModal('https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1600&q=80')">⛶</button>
+        <button class="fullscreen-btn" onclick="openFullscreenModal('https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1600&q=80', this)">⛶</button>
       </div>
       <div class="pinfo">
         <div class="pnum">PROJECT 04</div>
@@ -1604,7 +1645,7 @@
       <div class="media">
         <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1600&q=80" alt="proj5" data-slides='["https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1600&q=80","https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1600&q=80"]'>
         <div class="dots"></div>
-        <button class="fullscreen-btn" onclick="openFullscreenModal('https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1600&q=80')">⛶</button>
+        <button class="fullscreen-btn" onclick="openFullscreenModal('https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1600&q=80', this)">⛶</button>
       </div>
       <div class="pinfo">
         <div class="pnum">PROJECT 05</div>
@@ -1741,6 +1782,10 @@ const contactText = document.getElementById('contactText');
 const successMessage = document.getElementById('successMessage');
 const certificateModal = document.getElementById('certificateModal');
 
+// Fullscreen modal variables
+let currentFullscreenImageIndex = 0;
+let currentFullscreenImages = [];
+
 // Contact modal translations
 const contactTranslations = {
   en: {
@@ -1787,7 +1832,7 @@ const musicPromptTranslations = {
   }
 };
 
-// Typewriter effect for role section
+// Typewriter effect for role section - Modified to remove cursor and keep text longer
 function initTypewriter() {
     const titles = [
         "Business Intelligence Analyst",
@@ -1816,7 +1861,7 @@ function initTypewriter() {
         }
         
         if (!isDeleting && charIndex === currentTitle.length) {
-            typingSpeed = 2000;
+            typingSpeed = 3000; // Keep text for 3 seconds (1 second extra)
             isDeleting = true;
         } else if (isDeleting && charIndex === 0) {
             isDeleting = false;
@@ -1902,8 +1947,15 @@ function closeCertificateModal() {
   certificateModal.classList.remove('open');
 }
 
-// Open fullscreen modal
-function openFullscreenModal(imageSrc) {
+// Open fullscreen modal with navigation arrows
+function openFullscreenModal(imageSrc, buttonElement) {
+  const mediaElement = buttonElement.closest('.media');
+  const imgElement = mediaElement.querySelector('img');
+  const slides = JSON.parse(imgElement.getAttribute('data-slides') || '[]');
+  
+  currentFullscreenImages = slides.length > 0 ? slides : [imageSrc];
+  currentFullscreenImageIndex = currentFullscreenImages.indexOf(imageSrc);
+  
   document.getElementById('fullscreenModalImage').src = imageSrc;
   fullscreenModal.classList.add('open');
 }
@@ -1911,6 +1963,22 @@ function openFullscreenModal(imageSrc) {
 // Close fullscreen modal
 function closeFullscreenModal() {
   fullscreenModal.classList.remove('open');
+}
+
+// Navigate to previous image in fullscreen mode
+function prevFullscreenImage() {
+  if (currentFullscreenImages.length === 0) return;
+  
+  currentFullscreenImageIndex = (currentFullscreenImageIndex - 1 + currentFullscreenImages.length) % currentFullscreenImages.length;
+  document.getElementById('fullscreenModalImage').src = currentFullscreenImages[currentFullscreenImageIndex];
+}
+
+// Navigate to next image in fullscreen mode
+function nextFullscreenImage() {
+  if (currentFullscreenImages.length === 0) return;
+  
+  currentFullscreenImageIndex = (currentFullscreenImageIndex + 1) % currentFullscreenImages.length;
+  document.getElementById('fullscreenModalImage').src = currentFullscreenImages[currentFullscreenImageIndex];
 }
 
 // Handle contact form submission - FIXED VERSION
@@ -2024,6 +2092,8 @@ window.addEventListener('load', function() {
           loadingScreen.style.display = 'none';
           // Initialize typewriter effect
           initTypewriter();
+          // Auto-play music after loading
+          enableMusic();
           // Only show music prompt if it hasn't been shown before
           if (!hasMusicPromptBeenShown()) {
             musicPrompt.style.display = 'block';
@@ -2063,6 +2133,8 @@ window.addEventListener('load', function() {
         loadingScreen.style.display = 'none';
         // Initialize typewriter effect
         initTypewriter();
+        // Auto-play music after loading
+        enableMusic();
         // Only show music prompt if it hasn't been shown before
         if (!hasMusicPromptBeenShown()) {
           musicPrompt.style.display = 'block';
@@ -2388,7 +2460,7 @@ document.querySelectorAll('.media').forEach(media=>{
     // Update fullscreen button to current slide
     const fullscreenBtn = media.querySelector('.fullscreen-btn');
     if (fullscreenBtn) {
-      fullscreenBtn.setAttribute('onclick', `openFullscreenModal('${slides[current]}')`);
+      fullscreenBtn.setAttribute('onclick', `openFullscreenModal('${slides[current]}', this)`);
     }
   }
 
