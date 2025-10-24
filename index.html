@@ -194,7 +194,6 @@
           box-shadow: 0 20px 60px rgba(0,0,0,0.8);
           max-width: 400px;
           width: 90%;
-          display: none;
         }
 
         .music-prompt-header {
@@ -1342,7 +1341,7 @@
 </audio>
 
 <!-- Music Auto-play Prompt -->
-<div id="musicPrompt" class="music-prompt" style="display: none;">
+<div id="musicPrompt" class="music-prompt">
   <div class="music-prompt-header">
     <div class="music-prompt-lang">
       <button id="musicPromptEn" class="active">English</button>
@@ -2099,8 +2098,8 @@ window.addEventListener('load', function() {
           loadingScreen.style.display = 'none';
           // Initialize typewriter effect
           initTypewriter();
-          // Auto-play music after loading
-          enableMusic();
+          // Show music prompt after loading
+          musicPrompt.style.display = 'block';
         }, 500);
       }, 1000);
     }
@@ -2136,8 +2135,8 @@ window.addEventListener('load', function() {
         loadingScreen.style.display = 'none';
         // Initialize typewriter effect
         initTypewriter();
-        // Auto-play music after loading
-        enableMusic();
+        // Show music prompt after loading
+        musicPrompt.style.display = 'block';
       }, 500);
     }
   }, 5000); // Show after 5 seconds max
