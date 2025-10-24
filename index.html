@@ -166,6 +166,7 @@
           transition: all 0.3s ease;
           width: 100%;
           justify-content: center;
+          white-space: nowrap; /* ← ADD THIS LINE */
         }
 
         .sidebar-btn:hover {
@@ -1874,17 +1875,6 @@ function initTypewriter() {
     
     // Start typewriter after page loads
     setTimeout(typeWriter, 1000);
-}
-
-// Check if music prompt has been shown before
-function hasMusicPromptBeenShown() {
-  return localStorage.getItem('musicPromptShown') === 'true';
-}
-
-// Mark music prompt as shown
-function markMusicPromptAsShown() {
-  localStorage.setItem('musicPromptShown', 'true');
-}
 
 // Update contact modal language
 function updateContactLanguage(lang) {
@@ -2030,7 +2020,7 @@ contactForm.addEventListener('submit', function(e) {
 function closePromptAndPlayMusic() {
   musicPrompt.style.display = 'none';
   markMusicPromptAsShown();
-  enableMusic();
+  enableMusic(); // ← Just CALL the function instead of duplicating code
 }
 
 // Enable music when user clicks "Play Music"
@@ -2038,12 +2028,17 @@ function enableMusic() {
   musicPrompt.style.display = 'none';
   markMusicPromptAsShown();
   
+  // First try to play with muted to satisfy autoplay policies
+  bgMusic.muted = true;
   bgMusic.play().then(() => {
+    // Success! Now unmute and continue
+    bgMusic.muted = false;
     musicPlaying = true;
     musicText.textContent = musicPromptLanguage === 'en' ? 'Pause Music' : 'إيقاف الموسيقى';
     console.log('Music started successfully');
   }).catch(error => {
-    console.log('Music play failed:', error);
+    console.log('Music autoplay failed, trying fallback:', error);
+    // Fallback: user interaction might be required
     musicText.textContent = musicPromptLanguage === 'en' ? 'Play Music' : 'تشغيل الموسيقى';
     musicPlaying = false;
   });
