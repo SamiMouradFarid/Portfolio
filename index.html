@@ -89,24 +89,31 @@
           background: linear-gradient(180deg, rgba(2,8,12,0.28), rgba(2,8,12,0.48)); 
         }
 
-        /* Contact Button - FIXED SIZE */
-        .contact-btn {
-          position:fixed;
-          right:20px;
-          top:120px;
-          z-index:9999;
+        /* Right Side Buttons - IMPROVED RESPONSIVENESS */
+        .right-buttons {
+          position: fixed;
+          right: 20px;
+          top: 70px;
+          z-index: 9999;
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          align-items: flex-end;
+        }
+
+        .right-btn {
           background: rgba(255,255,255,0.03);
-          padding:8px 8px;
-          border-radius:10px;
-          border:2px solid rgba(255,255,255,0.04);
+          padding: 8px 15px;
+          border-radius: 10px;
+          border: 2px solid rgba(255,255,255,0.04);
           box-shadow: 0 8px 30px rgba(0,0,0,0.6);
           transition: all 0.3s ease;
           cursor: pointer;
-          min-width: 140px; /* Fixed width to prevent size changes */
+          min-width: 140px;
           text-align: center;
         }
 
-        .contact-btn a {
+        .right-btn a {
           color: var(--text-dark);
           text-decoration: none;
           font-weight:700;
@@ -118,50 +125,12 @@
           width: 100%;
         }
 
-        .contact-btn:hover {
+        .right-btn:hover {
           background: linear-gradient(90deg,var(--turq-1),var(--turq-2));
           box-shadow: 0 12px 30px rgba(6,168,154,0.12);
         }
 
-        .contact-btn:hover a {
-          color: #012;
-        }
-
-        /* Music Control Button - FIXED SIZE */
-        .music-control {
-          position:fixed;
-          right:20px;
-          top:170px;
-          z-index:9999;
-          background: rgba(255,255,255,0.03);
-          padding:8px 8px;
-          border-radius:10px;
-          border:2px solid rgba(255,255,255,0.04);
-          box-shadow: 0 8px 30px rgba(0,0,0,0.6);
-          transition: all 0.3s ease;
-          cursor: pointer;
-          min-width: 140px; /* Fixed width to prevent size changes */
-          text-align: center;
-        }
-
-        .music-control a {
-          color: var(--text-dark);
-          text-decoration: none;
-          font-weight:700;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 8px;
-          transition: all 0.3s ease;
-          width: 100%;
-        }
-
-        .music-control:hover {
-          background: linear-gradient(90deg,var(--turq-1),var(--turq-2));
-          box-shadow: 0 12px 30px rgba(6,168,154,0.12);
-        }
-
-        .music-control:hover a {
+        .right-btn:hover a {
           color: #012;
         }
 
@@ -567,14 +536,150 @@
           padding:8px 24px; 
           color:#e9fbfb; 
         }
-        .name{ font-size:34px; font-weight:800; color:#fff; }
-        .role{ margin-top:8px; color:#cfeff0; font-weight:600; }
+        
+        /* 3D Name Effect */
+        .name{ 
+          font-size:34px; 
+          font-weight:800; 
+          color:#fff;
+          text-shadow: 
+            0 1px 0 #ccc, 
+            0 2px 0 #c9c9c9, 
+            0 3px 0 #bbb, 
+            0 4px 0 #b9b9b9, 
+            0 5px 0 #aaa, 
+            0 6px 1px rgba(0,0,0,.1), 
+            0 0 5px rgba(0,0,0,.1), 
+            0 1px 3px rgba(0,0,0,.3), 
+            0 3px 5px rgba(0,0,0,.2), 
+            0 5px 10px rgba(0,0,0,.25), 
+            0 10px 10px rgba(0,0,0,.2), 
+            0 20px 20px rgba(0,0,0,.15);
+          transform: perspective(500px) rotateX(10deg);
+          transition: all 0.3s ease;
+        }
+        
+        .name:hover {
+          transform: perspective(500px) rotateX(0deg) scale(1.05);
+          text-shadow: 
+            0 1px 0 #ccc, 
+            0 2px 0 #c9c9c9, 
+            0 3px 0 #bbb, 
+            0 4px 0 #b9b9b9, 
+            0 5px 0 #aaa, 
+            0 6px 1px rgba(0,0,0,.1), 
+            0 0 5px rgba(0,0,0,.1), 
+            0 1px 3px rgba(0,0,0,.3), 
+            0 3px 5px rgba(0,0,0,.2), 
+            0 5px 10px rgba(0,0,0,.25), 
+            0 10px 10px rgba(0,0,0,.2), 
+            0 20px 20px rgba(0,0,0,.15),
+            0 0 20px var(--turq-1);
+        }
+        
+        /* Animated Role Text */
+        .role-container {
+          margin-top:8px; 
+          color:#cfeff0; 
+          font-weight:600;
+          height: 1.5em;
+          overflow: hidden;
+          position: relative;
+        }
+        
+        .role {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          opacity: 0;
+          animation: typewriter 15s infinite;
+        }
+        
+        .role:nth-child(1) {
+          animation-delay: 0s;
+        }
+        
+        .role:nth-child(2) {
+          animation-delay: 3s;
+        }
+        
+        .role:nth-child(3) {
+          animation-delay: 6s;
+        }
+        
+        .role:nth-child(4) {
+          animation-delay: 9s;
+        }
+        
+        .role:nth-child(5) {
+          animation-delay: 12s;
+        }
+        
+        @keyframes typewriter {
+          0% {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          10% {
+            opacity: 1;
+            transform: translateY(0);
+          }
+          20% {
+            opacity: 1;
+            transform: translateY(0);
+          }
+          30% {
+            opacity: 0;
+            transform: translateY(-20px);
+          }
+          100% {
+            opacity: 0;
+            transform: translateY(-20px);
+          }
+        }
+        
         .exp-badge{ margin-top:18px; padding:12px 22px; border-radius:12px; font-weight:800; background: linear-gradient(180deg,var(--turq-1),var(--turq-2)); color:#012; box-shadow: 0 16px 40px rgba(6,168,154,0.12); }
         .desc { margin-top:18px; color:#dff7f6; line-height:1.7; font-size:15px; max-width:720px; }
 
-        /* skills */
+        /* skills - 3D EFFECT */
         .skills-row{ margin-top:22px; display:flex; gap:10px; flex-wrap:wrap; }
-        .skill{ display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:999px; background: linear-gradient(90deg,var(--turq-3),var(--turq-1)); color:#012; font-weight:800; box-shadow: 0 12px 30px rgba(6,168,154,0.12); }
+        .skill{ 
+          display:inline-flex; 
+          align-items:center; 
+          gap:8px; 
+          padding:10px 14px; 
+          border-radius:999px; 
+          background: linear-gradient(90deg,var(--turq-3),var(--turq-1)); 
+          color:#012; 
+          font-weight:800; 
+          box-shadow: 0 12px 30px rgba(6,168,154,0.12);
+          transform: perspective(500px) rotateX(5deg);
+          transition: all 0.3s ease;
+          position: relative;
+          overflow: hidden;
+        }
+        
+        .skill::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+          transition: all 0.6s ease;
+        }
+        
+        .skill:hover {
+          transform: perspective(500px) rotateX(0deg) translateY(-5px);
+          box-shadow: 0 15px 35px rgba(6,168,154,0.25);
+        }
+        
+        .skill:hover::before {
+          left: 100%;
+        }
+        
         .download-row{ margin-top:18px; }
         .download-btn{ padding:12px 20px; border-radius:10px; background: linear-gradient(90deg,var(--turq-1),var(--turq-2)); color:#012; border:none; font-weight:800; cursor:pointer; box-shadow:0 14px 36px rgba(6,168,154,0.14); }
         .download-btn a {
@@ -999,7 +1104,7 @@
           border-radius: 8px;
         }
 
-        /* Full Screen Image Modal */
+        /* Full Screen Image Modal - IMPROVED */
         .fullscreen-modal {
           position: fixed;
           top: 0;
@@ -1011,7 +1116,7 @@
           display: none;
           align-items: center;
           justify-content: center;
-          padding: 20px;
+          padding: 40px;
         }
 
         .fullscreen-modal.open {
@@ -1020,23 +1125,29 @@
 
         .fullscreen-modal-content {
           position: relative;
-          max-width: 95%;
-          max-height: 95%;
+          max-width: 75%;
+          max-height: 75%;
           display: flex;
           align-items: center;
           justify-content: center;
+          background: rgba(2, 16, 25, 0.95);
+          border-radius: 16px;
+          border: 2px solid var(--turq-1);
+          box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+          overflow: hidden;
         }
 
         .fullscreen-modal-image {
           max-width: 100%;
           max-height: 100%;
           object-fit: contain;
+          padding: 20px;
         }
 
         .fullscreen-modal-close {
           position: absolute;
-          top: 20px;
-          right: 20px;
+          top: 15px;
+          right: 15px;
           background: rgba(0,0,0,0.6);
           border: none;
           color: white;
@@ -1125,6 +1236,10 @@
           .certificate-image {
             height: 280px;
           }
+          .fullscreen-modal-content {
+            max-width: 90%;
+            max-height: 80%;
+          }
         }
         @media (max-width:600px){
           .name{ font-size:22px }
@@ -1138,25 +1253,14 @@
             right: 10px;
             top: 10px;
           }
-          .linkedin-btn {
+          .right-buttons {
             right: 10px;
             top: 70px;
+          }
+          .right-btn {
+            min-width: 120px;
             padding: 6px 12px;
             font-size: 14px;
-          }
-          .contact-btn {
-            right: 10px;
-            top: 100px;
-            padding: 8px 15px;
-            font-size: 14px;
-            min-width: 120px;
-          }
-          .music-control {
-            right: 10px;
-            top: 170px;
-            padding: 8px 15px;
-            font-size: 14px;
-            min-width: 120px;
           }
           .companies-title {
             font-size: 24px;
@@ -1209,6 +1313,10 @@
           }
           .music-prompt-btn {
             min-width: 100%;
+          }
+          .fullscreen-modal-content {
+            max-width: 95%;
+            max-height: 70%;
           }
         }
 
@@ -1310,10 +1418,10 @@
   </div>
 </div>
 
-<!-- Full Screen Image Modal -->
+<!-- Full Screen Image Modal - IMPROVED -->
 <div id="fullscreenModal" class="fullscreen-modal">
-  <button class="fullscreen-modal-close" onclick="closeFullscreenModal()">✕</button>
   <div class="fullscreen-modal-content">
+    <button class="fullscreen-modal-close" onclick="closeFullscreenModal()">✕</button>
     <img id="fullscreenModalImage" class="fullscreen-modal-image" src="" alt="Full Screen Image">
   </div>
 </div>
@@ -1324,34 +1432,32 @@
   <button id="btn-ar">العربية</button>
 </div>
 
-<!-- LinkedIn Button -->
-<div class="linkedin-btn">
-  <a href="https://www.linkedin.com/in/samimouradfarid/" target="_blank" rel="noopener noreferrer">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-    </svg>
-    LinkedIn
-  </a>
-</div>
-
-<!-- Contact Button -->
-<div class="contact-btn" id="contactButton">
-  <a href="#" onclick="openContactModal(event)">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-    </svg>
-    <span id="contactText">Contact Me</span>
-  </a>
-</div>
-
-<!-- Music Control Button - ALWAYS VISIBLE -->
-<div class="music-control" id="musicControl">
-  <a href="#" onclick="toggleMusic(event)">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
-    </svg>
-    <span id="musicText">Play Music</span>
-  </a>
+<!-- Right Side Buttons - IMPROVED -->
+<div class="right-buttons">
+  <div class="right-btn linkedin-btn">
+    <a href="https://www.linkedin.com/in/samimouradfarid/" target="_blank" rel="noopener noreferrer">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+      </svg>
+      LinkedIn
+    </a>
+  </div>
+  <div class="right-btn contact-btn" id="contactButton">
+    <a href="#" onclick="openContactModal(event)">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+      </svg>
+      <span id="contactText">Contact Me</span>
+    </a>
+  </div>
+  <div class="right-btn music-control" id="musicControl">
+    <a href="#" onclick="toggleMusic(event)">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+      </svg>
+      <span id="musicText">Play Music</span>
+    </a>
+  </div>
 </div>
 
 <!-- main content -->
@@ -1369,7 +1475,15 @@
 
       <div class="col right">
         <div class="name">Sami Mourad Farid</div>
-        <div class="role">Business Intelligence Analyst — Data Analyst · Six Sigma · MIS</div>
+        
+        <!-- Animated Role Text -->
+        <div class="role-container">
+          <div class="role">I am working as Business Intelligence Analyst</div>
+          <div class="role">I am working as Data Analyst</div>
+          <div class="role">I am working as Six Sigma Analyst</div>
+          <div class="role">I am working as MIS Analyst</div>
+          <div class="role">I am working as Business Intelligence Analyst</div>
+        </div>
 
         <div class="exp-badge">⭐ 4+ Years of Experience</div>
 
@@ -1676,6 +1790,10 @@ const contactText = document.getElementById('contactText');
 const successMessage = document.getElementById('successMessage');
 const certificateModal = document.getElementById('certificateModal');
 
+// Fullscreen modal variables
+let currentFullscreenSlide = 0;
+let currentFullscreenSlides = [];
+
 // Contact modal translations
 const contactTranslations = {
   en: {
@@ -1793,15 +1911,95 @@ function closeCertificateModal() {
   certificateModal.classList.remove('open');
 }
 
-// Open fullscreen modal
-function openFullscreenModal(imageSrc) {
+// Open fullscreen modal with swipe functionality
+function openFullscreenModal(imageSrc, projectIndex = null) {
   document.getElementById('fullscreenModalImage').src = imageSrc;
   fullscreenModal.classList.add('open');
+  
+  // Get all slides for the current project if available
+  if (projectIndex !== null) {
+    const mediaElements = document.querySelectorAll('.media');
+    if (mediaElements[projectIndex]) {
+      const img = mediaElements[projectIndex].querySelector('img');
+      currentFullscreenSlides = JSON.parse(img.getAttribute('data-slides') || '[]');
+      currentFullscreenSlide = currentFullscreenSlides.indexOf(imageSrc);
+    }
+  }
+  
+  // Add swipe event listeners
+  addFullscreenSwipeListeners();
 }
 
 // Close fullscreen modal
 function closeFullscreenModal() {
   fullscreenModal.classList.remove('open');
+  // Remove swipe event listeners
+  removeFullscreenSwipeListeners();
+}
+
+// Add swipe functionality to fullscreen modal
+function addFullscreenSwipeListeners() {
+  const modalContent = document.querySelector('.fullscreen-modal-content');
+  let startX = 0;
+  let endX = 0;
+  const swipeThreshold = 50;
+  
+  modalContent.addEventListener('touchstart', handleFullscreenTouchStart);
+  modalContent.addEventListener('touchmove', handleFullscreenTouchMove);
+  modalContent.addEventListener('touchend', handleFullscreenTouchEnd);
+  
+  modalContent.addEventListener('mousedown', handleFullscreenMouseDown);
+  
+  function handleFullscreenTouchStart(e) {
+    startX = e.touches[0].clientX;
+  }
+  
+  function handleFullscreenTouchMove(e) {
+    endX = e.touches[0].clientX;
+  }
+  
+  function handleFullscreenTouchEnd() {
+    handleFullscreenSwipe();
+  }
+  
+  function handleFullscreenMouseDown(e) {
+    startX = e.clientX;
+    document.addEventListener('mousemove', handleFullscreenMouseMove);
+    document.addEventListener('mouseup', handleFullscreenMouseUp);
+  }
+  
+  function handleFullscreenMouseMove(e) {
+    endX = e.clientX;
+  }
+  
+  function handleFullscreenMouseUp() {
+    handleFullscreenSwipe();
+    document.removeEventListener('mousemove', handleFullscreenMouseMove);
+    document.removeEventListener('mouseup', handleFullscreenMouseUp);
+  }
+  
+  function handleFullscreenSwipe() {
+    const diffX = startX - endX;
+    
+    if (Math.abs(diffX) > swipeThreshold && currentFullscreenSlides.length > 1) {
+      if (diffX > 0) {
+        // Swipe left - next slide
+        currentFullscreenSlide = (currentFullscreenSlide + 1) % currentFullscreenSlides.length;
+      } else {
+        // Swipe right - previous slide
+        currentFullscreenSlide = (currentFullscreenSlide - 1 + currentFullscreenSlides.length) % currentFullscreenSlides.length;
+      }
+      document.getElementById('fullscreenModalImage').src = currentFullscreenSlides[currentFullscreenSlide];
+    }
+  }
+}
+
+// Remove swipe event listeners
+function removeFullscreenSwipeListeners() {
+  const modalContent = document.querySelector('.fullscreen-modal-content');
+  modalContent.removeEventListener('touchstart', handleFullscreenTouchStart);
+  modalContent.removeEventListener('touchmove', handleFullscreenTouchMove);
+  modalContent.removeEventListener('touchend', handleFullscreenTouchEnd);
 }
 
 // Handle contact form submission - FIXED VERSION
@@ -2249,7 +2447,7 @@ document.getElementById('contactModalEn').addEventListener('click', () => setLan
 document.getElementById('contactModalAr').addEventListener('click', () => setLanguage('ar'));
 
 /* ===== Project Slideshows (auto + dots click) ===== */
-document.querySelectorAll('.media').forEach(media=>{
+document.querySelectorAll('.media').forEach((media, index)=>{
   const img = media.querySelector('img');
   const slides = JSON.parse(img.getAttribute('data-slides') || '[]');
   const dotsWrap = media.querySelector('.dots');
@@ -2275,7 +2473,7 @@ document.querySelectorAll('.media').forEach(media=>{
     // Update fullscreen button to current slide
     const fullscreenBtn = media.querySelector('.fullscreen-btn');
     if (fullscreenBtn) {
-      fullscreenBtn.setAttribute('onclick', `openFullscreenModal('${slides[current]}')`);
+      fullscreenBtn.setAttribute('onclick', `openFullscreenModal('${slides[current]}', ${index})`);
     }
   }
 
