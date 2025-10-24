@@ -65,18 +65,18 @@
         .chart-bar {
           position: absolute;
           bottom: 0;
-          width: 20px;
+          width: 30px; /* Increased from 20px to 30px */
           background: linear-gradient(to top, var(--turq-1), var(--turq-2));
           border-radius: 4px 4px 0 0;
           animation: chartGrow 1.5s infinite ease-in-out;
         }
 
-        .chart-bar:nth-child(1) { left: 15px; height: 40px; animation-delay: 0s; }
+        .chart-bar:nth-child(1) { left: 10px; height: 40px; animation-delay: 0s; }
         .chart-bar:nth-child(2) { left: 45px; height: 70px; animation-delay: 0.2s; }
-        .chart-bar:nth-child(3) { left: 75px; height: 30px; animation-delay: 0.4s; }
-        .chart-bar:nth-child(4) { left: 105px; height: 90px; animation-delay: 0.6s; }
-        .chart-bar:nth-child(5) { left: 135px; height: 50px; animation-delay: 0.8s; }
-        .chart-bar:nth-child(6) { left: 165px; height: 60px; animation-delay: 1s; }
+        .chart-bar:nth-child(3) { left: 80px; height: 30px; animation-delay: 0.4s; }
+        .chart-bar:nth-child(4) { left: 115px; height: 90px; animation-delay: 0.6s; }
+        .chart-bar:nth-child(5) { left: 150px; height: 50px; animation-delay: 0.8s; }
+        .chart-bar:nth-child(6) { left: 185px; height: 60px; animation-delay: 1s; }
 
         @keyframes chartGrow {
           0%, 100% { transform: scaleY(1); }
@@ -166,7 +166,7 @@
           transition: all 0.3s ease;
           width: 100%;
           justify-content: center;
-          white-space: nowrap; /* ← ADD THIS LINE */
+          white-space: nowrap;
         }
 
         .sidebar-btn:hover {
@@ -194,6 +194,7 @@
           box-shadow: 0 20px 60px rgba(0,0,0,0.8);
           max-width: 400px;
           width: 90%;
+          display: none;
         }
 
         .music-prompt-header {
@@ -549,7 +550,7 @@
           color:#e9fbfb; 
         }
         .name{ 
-            font-size:28px; /* Reduced size to prevent overlap */
+            font-size:32px; /* Increased from 28px to 32px */
             font-weight:800; 
             color:#fff; 
             transition: all 0.3s ease;
@@ -1228,7 +1229,7 @@
           }
         }
         @media (max-width:600px){
-          .name{ font-size:22px }
+          .name{ font-size:26px } /* Adjusted for mobile */
           .profile-frame{ 
             width:78%;
             max-width: 300px;
@@ -1875,7 +1876,18 @@ function initTypewriter() {
     
     // Start typewriter after page loads
     setTimeout(typeWriter, 1000);
-} // ← ADD THIS MISSING CLOSING BRACE
+}
+
+// Check if music prompt has been shown before
+function hasMusicPromptBeenShown() {
+  return localStorage.getItem('musicPromptShown') === 'true';
+}
+
+// Mark music prompt as shown
+function markMusicPromptAsShown() {
+  localStorage.setItem('musicPromptShown', 'true');
+}
+
 // Update contact modal language
 function updateContactLanguage(lang) {
   const translations = contactTranslations[lang];
@@ -2020,7 +2032,7 @@ contactForm.addEventListener('submit', function(e) {
 function closePromptAndPlayMusic() {
   musicPrompt.style.display = 'none';
   markMusicPromptAsShown();
-  enableMusic(); // ← Just CALL the function instead of duplicating code
+  enableMusic();
 }
 
 // Enable music when user clicks "Play Music"
@@ -2080,19 +2092,15 @@ window.addEventListener('load', function() {
   
   function checkResourcesLoaded() {
     if (videoLoaded && audioLoaded) {
-      // Hide loading screen and show music prompt after a short delay
+      // Hide loading screen after a short delay
       setTimeout(() => {
         loadingScreen.style.opacity = '0';
         setTimeout(() => {
           loadingScreen.style.display = 'none';
           // Initialize typewriter effect
           initTypewriter();
-          // Auto-play music after loading
+          // Auto-play music after loading - NO PROMPT
           enableMusic();
-          // Only show music prompt if it hasn't been shown before
-          if (!hasMusicPromptBeenShown()) {
-            musicPrompt.style.display = 'block';
-          }
         }, 500);
       }, 1000);
     }
@@ -2128,12 +2136,8 @@ window.addEventListener('load', function() {
         loadingScreen.style.display = 'none';
         // Initialize typewriter effect
         initTypewriter();
-        // Auto-play music after loading
+        // Auto-play music after loading - NO PROMPT
         enableMusic();
-        // Only show music prompt if it hasn't been shown before
-        if (!hasMusicPromptBeenShown()) {
-          musicPrompt.style.display = 'block';
-        }
       }, 500);
     }
   }, 5000); // Show after 5 seconds max
